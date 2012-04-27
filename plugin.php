@@ -60,11 +60,7 @@ function display_feed() {
 			$excluded_blogs_sql
 			AND blog.`deleted` ='0' 
 			AND blog.`last_updated` != '0000-00-00 00:00:00'
-		ORDER BY
-			blog.`last_updated` DESC
-		LIMIT
-			" . (int) $max_entries
-	);
+	");
 
 	if ( ! is_array( $blogs ) )
 		wp_die( "There are no blogs." );
@@ -81,8 +77,6 @@ function display_feed() {
 				`post_status` = 'publish'
 				AND `post_password` = ''
 				AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
-			ORDER BY
-				`post_date_gmt` DESC
 			LIMIT "
 				. (int) $max_entries_per_site
 		);
@@ -107,6 +101,9 @@ function display_feed() {
 
 		return ( $a->date > $b->date ) ? -1 : 1;
 	} );
+
+	if ( $max_entries )
+		$feed_items = array_slice( $feed_items, 0, $max_entries );
 
 	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
 	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
