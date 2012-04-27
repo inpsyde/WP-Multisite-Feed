@@ -194,13 +194,14 @@ function get_feed_xml( $feed_items ) {
 
 // invalidate cache when necessary
 add_action( 'init', function () {
-	
+
 	$actions = array(
 		'publish_post',
 		'deleted_post',
 		'save_post',
 		'trashed_post',
-		'private_to_published'
+		'private_to_published',
+		'inpsmf_update_settings'
 	);
 
 	foreach ( $actions as $action )

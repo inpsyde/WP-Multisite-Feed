@@ -52,6 +52,8 @@ class Inpsyde_Settings_Page {
 
 		update_site_option( 'inpsyde_multisitefeed', $_REQUEST[ 'inpsyde_multisitefeed' ] );
 
+		do_action( 'inpsmf_update_settings' );
+
 		if ( isset( $_REQUEST[ '_wp_http_referer' ] ) )
 			wp_redirect( $_REQUEST[ '_wp_http_referer' ] );
 	}
