@@ -6,7 +6,7 @@ Description: Consolidates all network feeds into one.
 Version: 1.0alpha
 Author: Inpsyde GmbH
 Author URI: 
-License: Something commercial I guess?
+License: GPL
 */
 
 $correct_php_version = version_compare( phpversion(), "5.3", ">=" );

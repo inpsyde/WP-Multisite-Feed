@@ -7,10 +7,11 @@ if ( is_network_admin() ) {
 	new Settings\Inpsyde_Settings_Page;
 }
 
-function t( $text ) {
-	return __( $text, 'inpsyde_multisite_feed' );
-}
-
+/**
+ * Return feed url.
+ * 
+ * @return string
+ */
 function get_feed_url() {
 	$base_url = get_bloginfo( 'url' );
 	$slug     = Settings\get_site_option( 'url_slug' );
@@ -18,6 +19,11 @@ function get_feed_url() {
 	return apply_filters( 'inpsmf_feed_url' , $base_url . '/' . $slug );
 }
 
+/**
+ * Return feed title.
+ * 
+ * @return string
+ */
 function get_feed_title() {
 	$title     = Settings\get_site_option( 'title' );
 
@@ -27,6 +33,11 @@ function get_feed_title() {
 	return apply_filters( 'inpsmf_feed_title' , $title );
 }
 
+/**
+ * Return feed description.
+ * 
+ * @return string
+ */
 function get_feed_description() {
 	$description     = Settings\get_site_option( 'description' );
 
@@ -36,11 +47,16 @@ function get_feed_description() {
 	return apply_filters( 'inpsmf_feed_description' , $description );
 }
 
+/**
+ * Print out feed XML. Use cache if available.
+ * 
+ * @return void
+ */
 function display_feed() {
 	global $wpdb;
 
 	$cache_key = 'inpsyde_multisite_feed_cache';
-    if ( false === ( $out = get_site_transient( $cache_key ) ) ) {
+    if ( FALSE === ( $out = get_site_transient( $cache_key ) ) ) {
 
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
@@ -107,7 +123,7 @@ function display_feed() {
 
 		if ( $max_entries )
 			$feed_items = array_slice( $feed_items, 0, $max_entries );
-    	
+
         $out = get_feed_xml( $feed_items );
         set_site_transient( $cache_key, $out, 60 * Settings\get_site_option( 'cache_expiry_minutes', 60 ) );
     }
@@ -116,10 +132,23 @@ function display_feed() {
     echo $out;
 }
 
+/**
+ * Invalidate cache.
+ * 
+ * On the next request, the feed will be guaranteed to be fresh.
+ * 
+ * @return void
+ */
 function invalidate_cache() {
 	delete_site_transient( 'inpsyde_multisite_feed_cache' );
 }
 
+/**
+ * Return XML for full feed.
+ * 
+ * @param  array $feed_items Array of objects. Required attributes: ID (=post id), blog_id
+ * @return string
+ */
 function get_feed_xml( $feed_items ) {
 	global $post;
 
@@ -140,7 +169,7 @@ function get_feed_xml( $feed_items ) {
 		<title><?php echo get_feed_title(); ?></title>
 		<link><?php echo get_feed_url(); ?></link>
 		<description><?php echo get_feed_description(); ?></description>
-		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), false ); ?></lastBuildDate>
+		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
 		<language><?php echo get_option( 'rss_language' ); ?></language>
 		<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
@@ -156,7 +185,7 @@ function get_feed_xml( $feed_items ) {
 				<title><?php the_title_rss() ?></title>
 				<link><?php the_permalink_rss() ?></link>
 				<comments><?php comments_link_feed(); ?></comments>
-				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
+				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), FALSE ); ?></pubDate>
 				<dc:creator><?php the_author() ?></dc:creator>
 				<?php the_category_rss( 'rss2' ) ?>
 
