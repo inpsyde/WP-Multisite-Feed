@@ -68,7 +68,7 @@ class Inpsyde_Settings_Page {
 		<div class="wrap">
 
 			<?php screen_icon( 'options-general' ); ?>
-			<h2><?php _e( 'Multisite Feed', 'inps-multisite-feed' ); ?></h2>
+			<h2><?php _e( 'Multisite Feed Settings', 'inps-multisite-feed' ); ?></h2>
 			
 			<form method="post" action="#">
 
@@ -81,7 +81,7 @@ class Inpsyde_Settings_Page {
 				    <tbody>
 				        <tr valign="top">
 				            <th scope="row">
-				            	<label for="inpsmf_title"><?php _e( 'Feed Title.', 'inps-multisite-feed' ) ?></label>
+				            	<label for="inpsmf_title"><?php _e( 'Title', 'inps-multisite-feed' ) ?></label>
 				            </th>
 				            <td>
 				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'title', '' ); ?>" name="inpsyde_multisitefeed[title]" id="inpsmf_title">
@@ -89,7 +89,7 @@ class Inpsyde_Settings_Page {
 				        </tr>
 				        <tr valign="top">
 				            <th scope="row">
-				            	<label for="inpsmf_description"><?php _e( 'Feed Description.', 'inps-multisite-feed' ) ?></label>
+				            	<label for="inpsmf_description"><?php _e( 'Description', 'inps-multisite-feed' ) ?></label>
 				            </th>
 				            <td>
 				            	<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo get_site_option( 'description', '' ); ?></textarea>
@@ -97,18 +97,44 @@ class Inpsyde_Settings_Page {
 				        </tr>
 				        <tr valign="top">
 				            <th scope="row">
-				            	<label for="inpsmf_url_slug"><?php _e( 'Feed Url.', 'inps-multisite-feed' ) ?></label>
+				            	<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
 				            </th>
 				            <td>
 				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', '' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
 				        	</td>
 				        </tr>
 				        <tr valign="top">
-				        	<th></th>
+				            <th scope="row">
+				            	<label for="inpsmf_max_entries_per_site"><?php _e( 'Max. entries per site', 'inps-multisite-feed' ) ?></label>
+				            </th>
+				            <td>
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries_per_site', 20 ); ?>" name="inpsyde_multisitefeed[max_entries_per_site]" id="inpsmf_max_entries_per_site">
+				        	</td>
+				        </tr>
+				        <tr valign="top">
+				            <th scope="row">
+				            	<label for="inpsmf_max_entries"><?php _e( 'Max. entries overall', 'inps-multisite-feed' ) ?></label>
+				            </th>
+				            <td>
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries', 100 ); ?>" name="inpsyde_multisitefeed[max_entries]" id="inpsmf_max_entries">
+				        	</td>
+				        </tr>
+				        <tr valign="top">
+				            <th scope="row">
+				            	<label for="inpsmf_excluded_blogs"><?php _e( 'Exclude blogs', 'inps-multisite-feed' ) ?></label>
+				            </th>
+				            <td>
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'excluded_blogs', '' ); ?>" name="inpsyde_multisitefeed[excluded_blogs]" id="inpsmf_excluded_blogs">
+				            	<p><?php _e( 'Blog IDs, separated by comma. Leave empty to include all blogs.', 'inps-multisite-feed' ) ?></p>
+				        	</td>
+				        </tr>
+				        <tr valign="top">
+				        	<th scope="row">
+				        		<?php _e( 'Your Feed', 'inps-multisite-feed' ) ?>
+				        	</th>
 				        	<td>
-				        		<?php 
-				        		echo \Inpsyde\MultisiteFeed\get_feed_url();
-				        		?>
+				        		<?php $url = \Inpsyde\MultisiteFeed\get_feed_url(); ?>
+				        		<a href="<?php echo $url ?>"><?php echo $url ?></a>
 				        	</td>
 				        </tr>
 				    </tbody>

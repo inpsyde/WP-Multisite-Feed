@@ -1,8 +1,9 @@
 <?php
 namespace Inpsyde\MultisiteFeed;
 
+require_once dirname( __FILE__) . '/settings.php';
+
 if ( is_network_admin() ) {
-	require_once dirname( __FILE__) . '/settings.php';
 	new Settings\Inpsyde_Settings_Page;
 }
 
@@ -38,14 +39,14 @@ function get_feed_description() {
 function render_feed() {
 	global $wpdb;
 
-	// -- missing options --
-	// missing: max_entries_per_site
-	// missing: max_entries
-	// missing: $excluded_blogs
+	$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
+	$max_entries          = Settings\get_site_option( 'max_entries' );
+	$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
 
-	$max_entries_per_site = 5;
-	$max_entries = 20;
-	$excluded_blogs = 0;
+	if ( $excluded_blogs )
+		$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
+	else
+		$excluded_blogs_sql = '';
 
 	$blogs = $wpdb->get_col( "
 		SELECT
@@ -56,7 +57,7 @@ function render_feed() {
 			blog.`public` = '1'
 			AND blog.`archived` = '0'
 			AND blog.`spam` = '0'
-			AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")
+			$excluded_blogs_sql
 			AND blog.`deleted` ='0' 
 			AND blog.`last_updated` != '0000-00-00 00:00:00'
 		ORDER BY
