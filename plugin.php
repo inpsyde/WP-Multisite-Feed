@@ -39,80 +39,80 @@ function get_feed_description() {
 function display_feed() {
 	global $wpdb;
 
-	$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
-	$max_entries          = Settings\get_site_option( 'max_entries' );
-	$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
-
-	if ( $excluded_blogs )
-		$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
-	else
-		$excluded_blogs_sql = '';
-
-	$blogs = $wpdb->get_col( "
-		SELECT
-			blog.`blog_id`
-		FROM
-			".$wpdb->base_prefix."blogs AS blog 
-		WHERE
-			blog.`public` = '1'
-			AND blog.`archived` = '0'
-			AND blog.`spam` = '0'
-			$excluded_blogs_sql
-			AND blog.`deleted` ='0' 
-			AND blog.`last_updated` != '0000-00-00 00:00:00'
-	");
-
-	if ( ! is_array( $blogs ) )
-		wp_die( "There are no blogs." );
-
-	$feed_items = array();
-
-	foreach ( $blogs as $blog_id ) {
-		$results = $wpdb->get_results( "
-			SELECT
-				`ID`, `post_date_gmt` AS date
-			FROM
-				`" . $wpdb->base_prefix . $blog_id . "_posts` 
-			WHERE
-				`post_status` = 'publish'
-				AND `post_password` = ''
-				AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
-			LIMIT "
-				. (int) $max_entries_per_site
-		);
-
-		if ( ! is_array( $results ) || empty( $results ) )
-			continue;
-
-		// add blog id to post data
-		$results = array_map( function ( $row ) use ( $blog_id ) {
-			$row->blog_id = $blog_id;
-			return $row;
-		}, $results );
-
-		// add blog items to final array
-		$feed_items = array_merge( $feed_items, $results );
-	}
-
-	// sort by date
-	uasort( $feed_items, function ( $a, $b ) {
-		if ( $a->date == $b->date )
-			return 0;
-
-		return ( $a->date > $b->date ) ? -1 : 1;
-	} );
-
-	if ( $max_entries )
-		$feed_items = array_slice( $feed_items, 0, $max_entries );
-
-	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
-	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
-
 	$cache_key = 'inpsyde_multisite_feed_cache';
     if ( false === ( $out = get_site_transient( $cache_key ) ) ) {
+
+		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
+		$max_entries          = Settings\get_site_option( 'max_entries' );
+		$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
+
+		if ( $excluded_blogs )
+			$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
+		else
+			$excluded_blogs_sql = '';
+
+		$blogs = $wpdb->get_col( "
+			SELECT
+				blog.`blog_id`
+			FROM
+				".$wpdb->base_prefix."blogs AS blog 
+			WHERE
+				blog.`public` = '1'
+				AND blog.`archived` = '0'
+				AND blog.`spam` = '0'
+				$excluded_blogs_sql
+				AND blog.`deleted` ='0' 
+				AND blog.`last_updated` != '0000-00-00 00:00:00'
+		");
+
+		if ( ! is_array( $blogs ) )
+			wp_die( "There are no blogs." );
+
+		$feed_items = array();
+
+		foreach ( $blogs as $blog_id ) {
+			$results = $wpdb->get_results( "
+				SELECT
+					`ID`, `post_date_gmt` AS date
+				FROM
+					`" . $wpdb->base_prefix . $blog_id . "_posts` 
+				WHERE
+					`post_status` = 'publish'
+					AND `post_password` = ''
+					AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
+				LIMIT "
+					. (int) $max_entries_per_site
+			);
+
+			if ( ! is_array( $results ) || empty( $results ) )
+				continue;
+
+			// add blog id to post data
+			$results = array_map( function ( $row ) use ( $blog_id ) {
+				$row->blog_id = $blog_id;
+				return $row;
+			}, $results );
+
+			// add blog items to final array
+			$feed_items = array_merge( $feed_items, $results );
+		}
+
+		// sort by date
+		uasort( $feed_items, function ( $a, $b ) {
+			if ( $a->date == $b->date )
+				return 0;
+
+			return ( $a->date > $b->date ) ? -1 : 1;
+		} );
+
+		if ( $max_entries )
+			$feed_items = array_slice( $feed_items, 0, $max_entries );
+    	
         $out = get_feed_xml( $feed_items );
         set_site_transient( $cache_key, $out, 60 * Settings\get_site_option( 'cache_expiry_minutes', 60 ) );
     }
+
+    header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
     echo $out;
 }
 
@@ -124,6 +124,7 @@ function get_feed_xml( $feed_items ) {
 	global $post;
 
 	ob_start();
+	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
 	?>
 	<rss version="2.0"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
