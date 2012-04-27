@@ -107,7 +107,7 @@ class Inpsyde_Settings_Page {
 				            	<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
 				            </th>
 				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', '' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', 'multisite-feed' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
 				        	</td>
 				        </tr>
 				        <tr valign="top">
