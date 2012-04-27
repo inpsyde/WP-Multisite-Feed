@@ -129,6 +129,14 @@ class Inpsyde_Settings_Page {
 				        	</td>
 				        </tr>
 				        <tr valign="top">
+				            <th scope="row">
+				            	<label for="inpsmf_cache_expiry_minutes"><?php _e( 'Cache duration in minutes', 'inps-multisite-feed' ) ?></label>
+				            </th>
+				            <td>
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'cache_expiry_minutes', 60 ); ?>" name="inpsyde_multisitefeed[cache_expiry_minutes]" id="inpsmf_cache_expiry_minutes">
+				        	</td>
+				        </tr>
+				        <tr valign="top">
 				        	<th scope="row">
 				        		<?php _e( 'Your Feed', 'inps-multisite-feed' ) ?>
 				        	</th>

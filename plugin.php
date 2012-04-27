@@ -36,7 +36,7 @@ function get_feed_description() {
 	return apply_filters( 'inpsmf_feed_description' , $description );
 }
 
-function render_feed() {
+function display_feed() {
 	global $wpdb;
 
 	$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
@@ -109,18 +109,33 @@ function render_feed() {
 	} );
 
 	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
-	$more = 1;
+	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
 
-	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>'; ?>
+	$cache_key = 'inpsyde_multisite_feed_cache';
+    if ( false === ( $out = get_site_transient( $cache_key ) ) ) {
+        $out = get_feed_xml( $feed_items );
+        set_site_transient( $cache_key, $out, 60 * Settings\get_site_option( 'cache_expiry_minutes', 60 ) );
+    }
+    echo $out;
+}
 
+function invalidate_cache() {
+	delete_site_transient( 'inpsyde_multisite_feed_cache' );
+}
+
+function get_feed_xml( $feed_items ) {
+	global $post;
+
+	ob_start();
+	?>
 	<rss version="2.0"
-		xmlns:content="http://purl.org/rss/1.0/modules/content/"
-		xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-		xmlns:dc="http://purl.org/dc/elements/1.1/"
-		xmlns:atom="http://www.w3.org/2005/Atom"
-		xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-		xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-		<?php do_action('rss2_ns'); ?>
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	<?php do_action('rss2_ns'); ?>
 	>
 
 	<channel>
@@ -133,7 +148,7 @@ function render_feed() {
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 		<?php do_action( 'rss2_head' ); ?>
 
-		<?php global $post; ?>
+		<?php  ?>
 		<?php foreach ( $feed_items as $feed_item ): ?>
 			<?php switch_to_blog( $feed_item->blog_id ); ?>
 			<?php $post = get_post( $feed_item->ID ); ?>
@@ -170,14 +185,40 @@ function render_feed() {
 	</channel>
 	</rss>
 	<?php
+
+	$xml = ob_get_contents();
+	ob_end_clean();
+
+	return $xml;
 }
 
+// invalidate cache when necessary
+add_action( 'init', function () {
+	
+	$actions = array(
+		'publish_post',
+		'deleted_post',
+		'save_post',
+		'trashed_post',
+		'private_to_published'
+	);
+
+	foreach ( $actions as $action )
+		add_action( $action, '\Inpsyde\MultisiteFeed\invalidate_cache' );
+
+} );
+
+// hijack feed into WordPress
 add_action( 'init', function () {
 	$slug = Settings\get_site_option( 'url_slug' );
+
+	if ( ! $slug )
+		return;
+
 	$end_of_request_uri = substr( $_SERVER[ 'REQUEST_URI' ], strlen( $slug ) * -1 );
 
 	if ( $slug === $end_of_request_uri ) {
-		render_feed();
+		display_feed();
 		exit;
 	}
 } );
