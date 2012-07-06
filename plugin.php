@@ -9,6 +9,11 @@ if ( is_network_admin() ) {
 	new Settings\Inpsyde_Settings_Page;
 }
 
+/**
+ * Return feed url.
+ * 
+ * @return string
+ */
 function get_feed_url() {
 	$base_url = get_bloginfo( 'url' );
 	$slug     = Settings\get_site_option( 'url_slug' );
@@ -16,6 +21,11 @@ function get_feed_url() {
 	return apply_filters( 'inpsmf_feed_url' , $base_url . '/' . $slug );
 }
 
+/**
+ * Return feed title.
+ * 
+ * @return string
+ */
 function get_feed_title() {
 	$title     = Settings\get_site_option( 'title' );
 
@@ -25,6 +35,11 @@ function get_feed_title() {
 	return apply_filters( 'inpsmf_feed_title' , $title );
 }
 
+/**
+ * Return feed description.
+ * 
+ * @return string 
+ */
 function get_feed_description() {
 	$description     = Settings\get_site_option( 'description' );
 
@@ -33,7 +48,11 @@ function get_feed_description() {
 
 	return apply_filters( 'inpsmf_feed_description' , $description );
 }
-
+/**
+ * Print out feed XML. Use cache if available.
+ * 
+ * @return void
+ */
 function display_feed() {
 	global $wpdb;
 
@@ -116,10 +135,23 @@ function display_feed() {
     echo $out;
 }
 
+/**
+ * Invalidate Cache.
+ *
+ * On the next request, the feed will be guaranteed to be fresh.
+ * 
+ * @return void
+ */
 function invalidate_cache() {
 	delete_site_transient( 'inpsyde_multisite_feed_cache' );
 }
 
+/**
+ * Return XML for full feed.
+ * 
+ * @param  array $feed_items Array of objects. Required attributes: ID (=post id), blog_id
+ * @return string             
+ */
 function get_feed_xml( $feed_items ) {
 	global $post;
 
