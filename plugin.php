@@ -57,7 +57,7 @@ function display_feed() {
 	global $wpdb;
 
 	$cache_key = 'inpsyde_multisite_feed_cache';
-    if ( false === ( $out = get_site_transient( $cache_key ) ) ) {
+    if ( FALSE === ( $out = get_site_transient( $cache_key ) ) ) {
 
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
@@ -172,7 +172,7 @@ function get_feed_xml( $feed_items ) {
 		<title><?php echo get_feed_title(); ?></title>
 		<link><?php echo get_feed_url(); ?></link>
 		<description><?php echo get_feed_description(); ?></description>
-		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), false ); ?></lastBuildDate>
+		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
 		<language><?php echo get_option( 'rss_language' ); ?></language>
 		<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
@@ -188,7 +188,7 @@ function get_feed_xml( $feed_items ) {
 				<title><?php the_title_rss() ?></title>
 				<link><?php the_permalink_rss() ?></link>
 				<comments><?php comments_link_feed(); ?></comments>
-				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
+				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), FALSE ); ?></pubDate>
 				<dc:creator><?php the_author() ?></dc:creator>
 				<?php the_category_rss( 'rss2' ) ?>
 
