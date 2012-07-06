@@ -17,6 +17,9 @@ function get_site_option( $name, $default = NULL ) {
 
 /**
  * Settings Page Class
+ * 
+ * @authors et, fb
+ * @since   2.0.0  03/26/2012
  */
 class Inpsyde_Settings_Page {
 	
@@ -27,11 +30,6 @@ class Inpsyde_Settings_Page {
 		add_action( 'network_admin_menu', array( $this, 'save' ) );
 	}
 	
-	/**
-	 * Add menu entry to network admin.
-	 * 
-	 * @return void
-	 */
 	public function init_menu() {
 		
 		$this->page_hook = add_submenu_page(
@@ -44,11 +42,6 @@ class Inpsyde_Settings_Page {
 		);
 	}
 
-	/**
-	 * Save settings page form data.
-	 * 
-	 * @return void
-	 */
 	public function save() {
 		
 		if ( ! isset( $_POST[ 'action' ] ) || $_POST[ 'action' ] != 'update' )
@@ -66,9 +59,11 @@ class Inpsyde_Settings_Page {
 	}
 	
 	/**
-	 * Print settings page HTML.
+	 * Get settings pages incl. markup
 	 * 
-	 * @return void
+	 * @authors et, fb
+	 * @since   2.0.0  03/26/2012
+	 * @return  void
 	 */
 	public function page() {
 		?>
@@ -107,7 +102,7 @@ class Inpsyde_Settings_Page {
 				            	<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
 				            </th>
 				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', 'multisite-feed' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
+				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', 'multifeed' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
 				        	</td>
 				        </tr>
 				        <tr valign="top">

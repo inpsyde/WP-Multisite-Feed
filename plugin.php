@@ -3,15 +3,12 @@ namespace Inpsyde\MultisiteFeed;
 
 require_once dirname( __FILE__) . '/settings.php';
 
+load_plugin_textdomain( 'inps-multisite-feed' );
+
 if ( is_network_admin() ) {
 	new Settings\Inpsyde_Settings_Page;
 }
 
-/**
- * Return feed url.
- * 
- * @return string
- */
 function get_feed_url() {
 	$base_url = get_bloginfo( 'url' );
 	$slug     = Settings\get_site_option( 'url_slug' );
@@ -19,11 +16,6 @@ function get_feed_url() {
 	return apply_filters( 'inpsmf_feed_url' , $base_url . '/' . $slug );
 }
 
-/**
- * Return feed title.
- * 
- * @return string
- */
 function get_feed_title() {
 	$title     = Settings\get_site_option( 'title' );
 
@@ -33,11 +25,6 @@ function get_feed_title() {
 	return apply_filters( 'inpsmf_feed_title' , $title );
 }
 
-/**
- * Return feed description.
- * 
- * @return string
- */
 function get_feed_description() {
 	$description     = Settings\get_site_option( 'description' );
 
@@ -47,16 +34,11 @@ function get_feed_description() {
 	return apply_filters( 'inpsmf_feed_description' , $description );
 }
 
-/**
- * Print out feed XML. Use cache if available.
- * 
- * @return void
- */
 function display_feed() {
 	global $wpdb;
 
 	$cache_key = 'inpsyde_multisite_feed_cache';
-    if ( FALSE === ( $out = get_site_transient( $cache_key ) ) ) {
+    if ( false === ( $out = get_site_transient( $cache_key ) ) ) {
 
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
@@ -81,6 +63,8 @@ function display_feed() {
 				AND blog.`last_updated` != '0000-00-00 00:00:00'
 		");
 
+		file_put_contents('/tmp/php.log', print_r($blogs, true), FILE_APPEND | LOCK_EX);
+
 		if ( ! is_array( $blogs ) )
 			wp_die( "There are no blogs." );
 
@@ -91,7 +75,7 @@ function display_feed() {
 				SELECT
 					`ID`, `post_date_gmt` AS date
 				FROM
-					`" . $wpdb->base_prefix . $blog_id . "_posts` 
+					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` 
 				WHERE
 					`post_status` = 'publish'
 					AND `post_password` = ''
@@ -123,7 +107,7 @@ function display_feed() {
 
 		if ( $max_entries )
 			$feed_items = array_slice( $feed_items, 0, $max_entries );
-
+    	
         $out = get_feed_xml( $feed_items );
         set_site_transient( $cache_key, $out, 60 * Settings\get_site_option( 'cache_expiry_minutes', 60 ) );
     }
@@ -132,23 +116,10 @@ function display_feed() {
     echo $out;
 }
 
-/**
- * Invalidate cache.
- * 
- * On the next request, the feed will be guaranteed to be fresh.
- * 
- * @return void
- */
 function invalidate_cache() {
 	delete_site_transient( 'inpsyde_multisite_feed_cache' );
 }
 
-/**
- * Return XML for full feed.
- * 
- * @param  array $feed_items Array of objects. Required attributes: ID (=post id), blog_id
- * @return string
- */
 function get_feed_xml( $feed_items ) {
 	global $post;
 
@@ -169,7 +140,7 @@ function get_feed_xml( $feed_items ) {
 		<title><?php echo get_feed_title(); ?></title>
 		<link><?php echo get_feed_url(); ?></link>
 		<description><?php echo get_feed_description(); ?></description>
-		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
+		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), false ); ?></lastBuildDate>
 		<language><?php echo get_option( 'rss_language' ); ?></language>
 		<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
@@ -185,7 +156,7 @@ function get_feed_xml( $feed_items ) {
 				<title><?php the_title_rss() ?></title>
 				<link><?php the_permalink_rss() ?></link>
 				<comments><?php comments_link_feed(); ?></comments>
-				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), FALSE ); ?></pubDate>
+				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ); ?></pubDate>
 				<dc:creator><?php the_author() ?></dc:creator>
 				<?php the_category_rss( 'rss2' ) ?>
 

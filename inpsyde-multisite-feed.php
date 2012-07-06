@@ -3,10 +3,10 @@
 Plugin Name: Inpsyde Multisite Feed
 Plugin URI: 
 Description: Consolidates all network feeds into one.
-Version: 1.0alpha
+Version: 1.0
 Author: Inpsyde GmbH
 Author URI: 
-License: GPL
+License: GPLv3
 */
 
 $correct_php_version = version_compare( phpversion(), "5.3", ">=" );
