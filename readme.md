@@ -18,7 +18,7 @@ Create a separate feed for your whole multisite. This feed will have a custom ur
  1. [Settings](https://github.com/inpsyde/WP-Multisite-Feed/blob/master/screenshot-1.png)
 
 ## Other Notes
-## Bugs, technical hints or contribute
+### Bugs, technical hints or contribute
 Please give us feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
 
 ### Authors, Contributors
