@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Inpsyde Multisite Feed
-Plugin URI: 
+Plugin URI:  http://wordpress.org/extend/plugins/wp-multisite-feed/
 Description: Consolidates all network feeds into one.
-Version: 1.0
-Author: Inpsyde GmbH
-Author URI: 
-License: GPLv3
+Version:     1.0
+Author:      Inpsyde GmbH
+Author URI:  http://inpsyde.com/
+License:     GPLv3
 */
 
 $correct_php_version = version_compare( phpversion(), "5.3", ">=" );
@@ -17,4 +17,4 @@ if ( ! $correct_php_version ) {
 	exit;
 }
 
-require_once 'plugin.php';
+require_once 'inc/plugin.php';
