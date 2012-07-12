@@ -4,9 +4,6 @@ Consolidates all network feeds into one.
 ## Description
 Create a separate feed for your whole multisite. This feed will have a custom url. You can limit the number of entries per blog and the maximum number of entries for the whole feed.
 
-## Bugs, technical hints or contribute
-Please give me feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
-
 ## Installation
 ### Requirements
  * PHP 5.3 (important, use namespaces)
@@ -21,6 +18,14 @@ Please give me feedback, contribute and file technical bugs on this [GitHub Repo
  1. [Settings](https://github.com/inpsyde/WP-Multisite-Feed/blob/master/screenshot-1.png)
 
 ## Other Notes
+## Bugs, technical hints or contribute
+Please give us feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
+
+### Authors, Contributors
+ * [Inpsyde GmbH](https://github.com/inpsyde)
+ * [Eric](https://github.com/eteubert)
+ * [Frank](https://github.com/bueltge)
+
 ### Licence
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me and leave a [small donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955 "Paypal Donate link") for the time I've spent writing and supporting this plugin. And I really don't want to know how many hours of my life this plugin has already eaten ;)
 
