@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Inpsyde Multisite Feed v0.1\n"
+"Project-Id-Version: Inpsyde Multisite Feed v1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-07-06 14:10:47+0000\n"
+"PO-Revision-Date: 2012-07-12 07:39:02+0000\n"
 "Last-Translator: admin <ericteubert@googlemail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,57 +19,57 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: settings.php:73
+#: inc/settings.php:73
 #@ inps-multisite-feed
 msgid "Multisite Feed Settings"
 msgstr "Multisite Feed Einstellungen"
 
-#: settings.php:86
+#: inc/settings.php:86
 #@ inps-multisite-feed
 msgid "Title"
 msgstr "Titel"
 
-#: settings.php:94
+#: inc/settings.php:94
 #@ inps-multisite-feed
 msgid "Description"
 msgstr "Beschreibung"
 
-#: settings.php:102
+#: inc/settings.php:102
 #@ inps-multisite-feed
 msgid "Url"
 msgstr "URL"
 
-#: settings.php:110
+#: inc/settings.php:110
 #@ inps-multisite-feed
 msgid "Max. entries per site"
 msgstr "Max. Einträge pro Seite"
 
-#: settings.php:118
+#: inc/settings.php:118
 #@ inps-multisite-feed
 msgid "Max. entries overall"
 msgstr "Max. Einträge insgesamt"
 
-#: settings.php:126
+#: inc/settings.php:126
 #@ inps-multisite-feed
 msgid "Exclude blogs"
 msgstr "Blogs ausschließen"
 
-#: settings.php:130
+#: inc/settings.php:130
 #@ inps-multisite-feed
 msgid "Blog IDs, separated by comma. Leave empty to include all blogs."
 msgstr "Komme getrennte Blog IDs. Leer lassen, um alle Blogs einzuschließen."
 
-#: settings.php:135
+#: inc/settings.php:135
 #@ inps-multisite-feed
 msgid "Cache duration in minutes"
 msgstr "Cache Dauer in Minuten"
 
-#: settings.php:143
+#: inc/settings.php:143
 #@ inps-multisite-feed
 msgid "Your Feed"
 msgstr "Dein Feed"
 
-#: settings.php:152
+#: inc/settings.php:152
 #@ default
 msgid "Save Changes"
 msgstr ""
