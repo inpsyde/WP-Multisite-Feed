@@ -21,6 +21,18 @@ Create a separate feed for your whole multisite. This feed will have a custom ur
 ### Bugs, technical hints or contribute
 Please give us feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
 
+### Available Filter Hooks
+ * `rss_update_period` - Update period, global filter from WordPress Core; works on all RSS feeds
+ * `rss_update_frequency` - Update frequency,  global filter from WordPress Core; works on all RSS feeds
+ * `inpsmf_feed_url` - Filter feed url, on default use the slug of plugin settings
+ * `inpsmf_feed_title` - Filter the feed title
+ * `inpsmf_feed_description` - Filter feed description
+
+### Available Action Hooks
+ * `rss2_ns` - Runs inside the root XML element in an RSS 2 feed (to add namespaces). It is an core hook, works on all feeds.
+ * `rss2_head` - Runs just after the blog information has been printed in an RSS 2 feed, just before the first entry. It is an core hook, works on all feeds.
+ * `rss2_item` - Runs just after the entry information has been printed (but before closing the item tag) for each blog entry in an RSS 2 feed. It is an core hook, works on all feeds.
+
 ### Authors, Contributors
  * [Inpsyde GmbH](https://github.com/inpsyde)
  * [Eric](https://github.com/eteubert)
