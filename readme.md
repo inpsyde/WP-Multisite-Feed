@@ -46,3 +46,15 @@ Good news, this plugin is free for everyone! Since it's released under the GPL, 
 
 ### Translations
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or the plugin [Localization](http://wordpress.org/extend/plugins/codestyling-localization/) for WordPress.
+
+### Contact & Feedback
+The plugin is designed and developed by the team of [Inpsyde GmbH](http://inpsyde.com)
+
+Please let us know if you like the plugin or you hate it or whatever ... Please fork it, add an issue for ideas and bugs.
+
+### Disclaimer
+We are German and our English might be gruesome here and there. So please be patient with us and let us know of typos or grammatical farts. Thanks
+
+## Changelog
+
+ * [see on the page](http://wordpress.org/extend/plugins/wp-multisite-feed/changelog/)
