@@ -41,7 +41,7 @@ Please give us feedback, contribute and file technical bugs on this [GitHub Repo
  * [Eric](https://github.com/eteubert)
  * [Frank](https://github.com/bueltge)
 
-### Licence
+### License
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me and leave a [small donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6069955 "Paypal Donate link") for the time I've spent writing and supporting this plugin. And I really don't want to know how many hours of my life this plugin has already eaten ;)
 
 ### Translations
