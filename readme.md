@@ -4,6 +4,9 @@ Consolidates all network feeds into one.
 ## Description
 Create a separate feed for your whole multisite. This feed will have a custom url. You can limit the number of entries per blog and the maximum number of entries for the whole feed.
 
+### Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress
+Have a look at the premium plugins in our [market](http://marketpress.com).
+
 ## Installation
 ### Requirements
  * PHP 5.3 (important, use namespaces)
