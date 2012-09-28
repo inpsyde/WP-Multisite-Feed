@@ -100,10 +100,12 @@ function display_feed() {
 				FROM
 					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` 
 				WHERE
-					`post_type`   = 'post'
+					`post_type` = 'post'
 					AND `post_status` = 'publish'
 					AND `post_password` = ''
 					AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
+				ORDER BY
+					post_date_gmt DESC
 				LIMIT "
 					. (int) $max_entries_per_site
 			);
