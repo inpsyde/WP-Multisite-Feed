@@ -100,7 +100,8 @@ function display_feed() {
 				FROM
 					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` 
 				WHERE
-					`post_status` = 'publish'
+					`post_type`   = 'post'
+					AND `post_status` = 'publish'
 					AND `post_password` = ''
 					AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
 				LIMIT "
@@ -159,11 +160,10 @@ function invalidate_cache() {
  */
 function get_feed_xml( $feed_items ) {
 	global $post;
-
+	
 	ob_start();
-	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
-	?>
-	<rss version="2.0"
+echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>'; ?>
+<rss version="2.0"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -171,10 +171,11 @@ function get_feed_xml( $feed_items ) {
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 	<?php do_action('rss2_ns'); ?>
-	>
-	
-	<channel>
+>
+
+<channel>
 		<title><?php echo get_feed_title(); ?></title>
+		<atom:link href="<?php echo get_feed_url(); ?>" rel="self" type="application/rss+xml" />
 		<link><?php echo get_feed_url(); ?></link>
 		<description><?php echo get_feed_description(); ?></description>
 		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
@@ -183,7 +184,6 @@ function get_feed_xml( $feed_items ) {
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 		<?php do_action( 'rss2_head' ); ?>
 		
-		<?php  ?>
 		<?php foreach ( $feed_items as $feed_item ): ?>
 			<?php switch_to_blog( $feed_item->blog_id ); ?>
 			<?php $post = get_post( $feed_item->ID ); ?>
@@ -217,9 +217,9 @@ function get_feed_xml( $feed_items ) {
 			<?php restore_current_blog(); ?>
 		<?php endforeach ?>
 		
-	</channel>
-	</rss>
-	<?php
+</channel>
+</rss>
+<?php
 	
 	$xml = ob_get_contents();
 	ob_end_clean();

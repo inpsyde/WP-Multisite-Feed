@@ -4,7 +4,7 @@ namespace Inpsyde\MultisiteFeed\Settings;
 /**
  * Convenience wrapper to access plugin options.
  * 
- * @param  string $name    option name
+ * @param  string $name	option name
  * @param  mixed  $default fallback value if option does not exist
  * @return mixed
  */
@@ -80,75 +80,75 @@ class Inpsyde_Settings_Page {
 				?>
 
 				<table class="form-table">
-				    <tbody>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_title"><?php _e( 'Title', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'title', '' ); ?>" name="inpsyde_multisitefeed[title]" id="inpsmf_title">
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_description"><?php _e( 'Description', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo get_site_option( 'description', '' ); ?></textarea>
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', 'multifeed' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_max_entries_per_site"><?php _e( 'Max. entries per site', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries_per_site', 20 ); ?>" name="inpsyde_multisitefeed[max_entries_per_site]" id="inpsmf_max_entries_per_site">
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_max_entries"><?php _e( 'Max. entries overall', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries', 100 ); ?>" name="inpsyde_multisitefeed[max_entries]" id="inpsmf_max_entries">
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_excluded_blogs"><?php _e( 'Exclude blogs', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'excluded_blogs', '' ); ?>" name="inpsyde_multisitefeed[excluded_blogs]" id="inpsmf_excluded_blogs">
-				            	<p><?php _e( 'Blog IDs, separated by comma. Leave empty to include all blogs.', 'inps-multisite-feed' ) ?></p>
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				            <th scope="row">
-				            	<label for="inpsmf_cache_expiry_minutes"><?php _e( 'Cache duration in minutes', 'inps-multisite-feed' ) ?></label>
-				            </th>
-				            <td>
-				            	<input class="regular-text" type="text" value="<?php echo get_site_option( 'cache_expiry_minutes', 60 ); ?>" name="inpsyde_multisitefeed[cache_expiry_minutes]" id="inpsmf_cache_expiry_minutes">
-				        	</td>
-				        </tr>
-				        <tr valign="top">
-				        	<th scope="row">
-				        		<?php _e( 'Your Feed', 'inps-multisite-feed' ) ?>
-				        	</th>
-				        	<td>
-				        		<?php $url = \Inpsyde\MultisiteFeed\get_feed_url(); ?>
-				        		<a href="<?php echo $url ?>"><?php echo $url ?></a>
-				        	</td>
-				        </tr>
-				    </tbody>
-				</table>				
+					<tbody>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_title"><?php _e( 'Title', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'title', '' ); ?>" name="inpsyde_multisitefeed[title]" id="inpsmf_title">
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_description"><?php _e( 'Description', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo get_site_option( 'description', '' ); ?></textarea>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'url_slug', 'multifeed' ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_max_entries_per_site"><?php _e( 'Max. entries per site', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries_per_site', 20 ); ?>" name="inpsyde_multisitefeed[max_entries_per_site]" id="inpsmf_max_entries_per_site">
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_max_entries"><?php _e( 'Max. entries overall', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'max_entries', 100 ); ?>" name="inpsyde_multisitefeed[max_entries]" id="inpsmf_max_entries">
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_excluded_blogs"><?php _e( 'Exclude blogs', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'excluded_blogs', '' ); ?>" name="inpsyde_multisitefeed[excluded_blogs]" id="inpsmf_excluded_blogs">
+								<p><?php _e( 'Blog IDs, separated by comma. Leave empty to include all blogs.', 'inps-multisite-feed' ) ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<label for="inpsmf_cache_expiry_minutes"><?php _e( 'Cache duration in minutes', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'cache_expiry_minutes', 60 ); ?>" name="inpsyde_multisitefeed[cache_expiry_minutes]" id="inpsmf_cache_expiry_minutes">
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
+								<?php _e( 'Your Feed', 'inps-multisite-feed' ) ?>
+							</th>
+							<td>
+								<?php $url = \Inpsyde\MultisiteFeed\get_feed_url(); ?>
+								<a target="_blank" href="<?php echo $url ?>"><?php echo $url ?></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 				<?php submit_button( __( 'Save Changes' ), 'button-primary', 'submit', TRUE ); ?>
 			</form>
 			
