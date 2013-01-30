@@ -2,7 +2,7 @@
 Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.0
-Tested up to: 3.4.1
+Tested up to: 3.6-alpha
 Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
