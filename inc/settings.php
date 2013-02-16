@@ -136,7 +136,7 @@ class Inpsyde_Settings_Page {
 							</th>
 							<td>
 							    <input id="inpsmf_only_podcasts" name="inpsyde_multisitefeed[only_podcasts]" type="checkbox" value="1" <?php if (get_site_option( 'only_podcasts', '' )) { checked('1', get_site_option( 'only_podcasts', '' )); } ?> />
-							    <p><?php _e( 'Currently supports the Blubrry PowerPress plugin.', 'inps-multisite-feed' ) ?></p>
+							    <p><?php _e( 'Currently supports podPress or Blubrry PowerPress plugin.', 'inps-multisite-feed' ) ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
