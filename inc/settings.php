@@ -132,6 +132,15 @@ class Inpsyde_Settings_Page {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
+								<label for="inpsmf_only_podcasts"><?php _e( 'Only include podcast episodes', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+							    <input id="inpsmf_only_podcasts" name="inpsyde_multisitefeed[only_podcasts]" type="checkbox" value="1" <?php if (get_site_option( 'only_podcasts', '' )) { checked('1', get_site_option( 'only_podcasts', '' )); } ?> />
+							    <p><?php _e( 'Currently supports the Blubrry PowerPress plugin.', 'inps-multisite-feed' ) ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
 								<label for="inpsmf_cache_expiry_minutes"><?php _e( 'Cache duration in minutes', 'inps-multisite-feed' ) ?></label>
 							</th>
 							<td>

@@ -66,6 +66,7 @@ function display_feed() {
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
 		$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
+		$only_podcasts        = Settings\get_site_option( 'only_podcasts' );
 		
 		if ( $excluded_blogs )
 			$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
@@ -93,19 +94,28 @@ function display_feed() {
 		
 		$feed_items = array();
 		
+		if ( $only_podcasts ) {
+    		$only_podcasts_sql = "AND (postmeta.`meta_key` = 'enclosure' OR postmeta.`meta_key` = '_podPressMedia')";
+		} else {
+    		$only_podcasts_sql = '';
+		}
+		
 		foreach ( $blogs as $blog_id ) {
 			$results = $wpdb->get_results( "
 				SELECT
-					`ID`, `post_date_gmt` AS date
+					posts.`ID`, posts.`post_date_gmt` AS date
 				FROM
-					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` 
+					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` as posts,
+					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "postmeta` as postmeta
 				WHERE
-					`post_type` = 'post'
-					AND `post_status` = 'publish'
-					AND `post_password` = ''
-					AND `post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
+					posts.`ID` = postmeta.`post_id`
+					AND posts.`post_type` = 'post'
+					AND posts.`post_status` = 'publish'
+					AND posts.`post_password` = ''
+					AND posts.`post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
+					$only_podcasts_sql
 				ORDER BY
-					post_date_gmt DESC
+					posts.post_date_gmt DESC
 				LIMIT "
 					. (int) $max_entries_per_site
 			);
