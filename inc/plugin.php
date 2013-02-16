@@ -87,8 +87,6 @@ function display_feed() {
 				AND blog.`last_updated` != '0000-00-00 00:00:00'
 		");
 		
-		file_put_contents('/tmp/php.log', print_r( $blogs, TRUE ), FILE_APPEND | LOCK_EX);
-		
 		if ( ! is_array( $blogs ) )
 			wp_die( "There are no blogs." );
 		
