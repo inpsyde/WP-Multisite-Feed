@@ -1,13 +1,14 @@
 <?php
-/*
-Plugin Name: Inpsyde Multisite Feed
-Plugin URI:  http://wordpress.org/extend/plugins/wp-multisite-feed/
-Description: Consolidates all network feeds into one.
-Version:     1.0.0
-Author:      Inpsyde GmbH
-Author URI:  http://inpsyde.com/
-License:     GPLv3
-*/
+/**
+ * Plugin Name: Inpsyde Multisite Feed
+ * Plugin URI:  http://wordpress.org/extend/plugins/wp-multisite-feed/
+ * Description: Consolidates all network feeds into one.
+ * Version:     1.0.0
+ * Author:      Inpsyde GmbH
+ * Author URI:  http://inpsyde.com/
+ * License:     GPLv3
+ * Network:     true
+ */
 
 $correct_php_version = version_compare( phpversion(), "5.3", ">=" );
 
