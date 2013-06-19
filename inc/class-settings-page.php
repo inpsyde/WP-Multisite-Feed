@@ -111,8 +111,8 @@ class Inpsyde_Settings_Page {
 							</th>
 							<td>
 								<input class="regular-text" type="text" value="<?php echo get_site_option( 'language_slug', 'en' ); ?>" name="inpsyde_multisitefeed[language_slug]" id="inpsmf_language_slug">
+								<p><?php _e( 'Language key for the feed. Use the keys from the <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO-639 language key</a>, not the same as the WPLANG constant.', 'inps-multisite-feed' ); ?></p>
 							</td>
-							<p>Language key for the feed. Use the keys from the <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO-639 language key</a>, not the same as the WPLANG constant.</p>
 						</tr>
 						<tr valign="top">
 							<th scope="row">

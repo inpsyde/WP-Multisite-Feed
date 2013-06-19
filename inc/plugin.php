@@ -3,7 +3,8 @@ namespace Inpsyde\MultisiteFeed;
 
 require_once dirname( __FILE__) . '/class-settings-page.php';
 
-load_plugin_textdomain( 'inps-multisite-feed' );
+load_plugin_textdomain( 'inps-multisite-feed', FALSE, str_replace( 'inc', '', dirname( plugin_basename(__FILE__) ) )
+ . 'languages' );
 
 // network activation check
 if ( is_network_admin() ) {
