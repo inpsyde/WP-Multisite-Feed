@@ -22,7 +22,7 @@ Have a look at the premium plugins in our [market](http://marketpress.com).
 == Installation ==
 = Requirements =
  * PHP 5.3 (important, use namespaces)
- * WordPress version 3.3 and later (tested at 3.5-Alpha (nightly build))
+ * WordPress version 3.3 and later (tested at 3.6 nightly build)
 
 = Installation =
  1. Upload the plugin directory to the `/wp-content/plugins/` directory or use the installer via backend of WordPress
