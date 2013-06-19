@@ -1,7 +1,7 @@
 <?php
 namespace Inpsyde\MultisiteFeed;
 
-require_once dirname( __FILE__) . '/settings.php';
+require_once dirname( __FILE__) . '/class-settings-page.php';
 
 load_plugin_textdomain( 'inps-multisite-feed' );
 
@@ -30,12 +30,15 @@ function get_feed_url() {
  */
 function get_feed_title() {
 	
-	$title     = Settings\get_site_option( 'title' );
+	$info  = strip_tags( Settings\get_site_option( 'title' ) );
+	$title = apply_filters( 'get_bloginfo_rss', convert_chars( $info ) );
 	
-	if ( ! $title )
-		$title = get_bloginfo_rss( 'name' ) . get_wp_title_rss();
+	if ( ! $title ) {
+		$title  = get_bloginfo_rss( 'name' );
+		$title .= get_wp_title_rss();
+	}
 	
-	return apply_filters( 'inpsmf_feed_title' , $title );
+	return apply_filters( 'inpsmf_feed_title', $title );
 }
 
 /**
@@ -45,12 +48,13 @@ function get_feed_title() {
  */
 function get_feed_description() {
 	
-	$description     = Settings\get_site_option( 'description' );
-
+	$info        = strip_tags( Settings\get_site_option( 'description' ) );
+	$description = apply_filters( 'get_bloginfo_rss', convert_chars( $info ) );
+	
 	if ( ! $description )
-		$description = get_bloginfo_rss( "description" );
+		$description = get_bloginfo_rss( 'description' );
 
-	return apply_filters( 'inpsmf_feed_description' , $description );
+	return apply_filters( 'inpsmf_feed_description', $description );
 }
 /**
  * Print out feed XML. Use cache if available.
@@ -61,7 +65,15 @@ function display_feed() {
 	global $wpdb;
 	
 	$cache_key = 'inpsyde_multisite_feed_cache';
-	if ( FALSE === ( $out = get_site_transient( $cache_key ) ) ) {
+	$out = get_site_transient( $cache_key );
+	
+	// Deactivate Caching for Debugging
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG
+			 || ( 0 === Settings\get_site_option( 'cache_expiry_minutes' ) )
+			)
+		$out = FALSE;
+	
+	if ( FALSE === $out ) {
 
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
@@ -92,29 +104,34 @@ function display_feed() {
 		
 		$feed_items = array();
 		
-		if ( $only_podcasts ) {
-    		$only_podcasts_sql = "AND (postmeta.`meta_key` = 'enclosure' OR postmeta.`meta_key` = '_podPressMedia')";
-		} else {
-    		$only_podcasts_sql = '';
-		}
-		
-		foreach ( $blogs as $blog_id ) {
+		foreach( $blogs as $blog_id ) {
+			
+			if ( $only_podcasts ) {
+				$only_podcasts_sql_from  = ", `" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "postmeta` AS postmeta";
+				$only_podcasts_sql_where = "AND posts.`ID` = postmeta.`post_id`";
+				$only_podcasts_sql       = "AND (postmeta.`meta_key` = 'enclosure' OR postmeta.`meta_key` = '_podPressMedia')";
+			} else {
+				$only_podcasts_sql_from = '';
+				$only_podcasts_sql_where = '';
+				$only_podcasts_sql = '';
+			}
+			
 			$results = $wpdb->get_results( "
 				SELECT
 					posts.`ID`, posts.`post_date_gmt` AS date
 				FROM
-					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` as posts,
-					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "postmeta` as postmeta
+					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` AS posts
+					$only_podcasts_sql_from
 				WHERE
-					posts.`ID` = postmeta.`post_id`
-					AND posts.`post_type` = 'post'
+					posts.`post_type` = 'post'
+					$only_podcasts_sql_where
 					AND posts.`post_status` = 'publish'
 					AND posts.`post_password` = ''
 					AND posts.`post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
 					$only_podcasts_sql
 				ORDER BY
 					posts.post_date_gmt DESC
-				LIMIT "
+				LIMIT 0,"
 					. (int) $max_entries_per_site
 			);
 			
@@ -130,7 +147,7 @@ function display_feed() {
 			// add blog items to final array
 			$feed_items = array_merge( $feed_items, $results );
 		}
-
+		
 		// sort by date
 		uasort( $feed_items, function ( $a, $b ) {
 			if ( $a->date == $b->date )
@@ -138,7 +155,7 @@ function display_feed() {
 			
 			return ( $a->date > $b->date ) ? -1 : 1;
 		} );
-
+		
 		if ( $max_entries )
 			$feed_items = array_slice( $feed_items, 0, $max_entries );
 		
@@ -171,8 +188,13 @@ function invalidate_cache() {
 function get_feed_xml( $feed_items ) {
 	global $post;
 	
+	$rss_language = Settings\get_site_option( 'language_slug' );
+	if ( empty( $rss_language ) && defined( 'WPLANG' ) )
+		$rss_language = substr( WPLANG, 0, 2 ); 
+	
 	ob_start();
 echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>'; ?>
+
 <rss version="2.0"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
 	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
@@ -189,7 +211,7 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 		<link><?php echo get_feed_url(); ?></link>
 		<description><?php echo get_feed_description(); ?></description>
 		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
-		<language><?php echo get_option( 'rss_language' ); ?></language>
+		<language><?php echo $rss_language; ?></language>
 		<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
 		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 		<?php do_action( 'rss2_head' ); ?>
@@ -268,3 +290,19 @@ add_action( 'init', function () {
 		exit;
 	}
 } );
+
+/**
+ * Simple helper to debug to the console
+ * 
+ * $data   Array, String $data
+ * @return void
+ */
+function debug_to_console( $data ) {
+	
+	if ( is_array( $data ) )
+		$output = "<script>console.log( 'Debug Multisite-Feed: " . implode( ',', $data) . "' );</script>";
+	else
+		$output = "<script>console.log( 'Debug Multisite-Feed: " . $data . "' );</script>";
+		
+	echo $output;
+}

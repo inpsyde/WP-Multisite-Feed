@@ -2,8 +2,8 @@
 Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.0
-Tested up to: 3.6-alpha
-Stable tag: 1.0.0
+Tested up to: 3.6-beta3
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,11 @@ Good news, this plugin is free for everyone! Since it's released under the GPL, 
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or the plugin [Localization](http://wordpress.org/extend/plugins/codestyling-localization/) for WordPress.
 
 == Changelog ==
+= 1.0.1 =
+ * Add more possibilities on Settings
+ * Fix small major problems
+
+ 
 = 1.0.0 =
  * Initial Release
  
