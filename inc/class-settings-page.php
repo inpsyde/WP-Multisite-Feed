@@ -41,19 +41,25 @@ class Inpsyde_Settings_Page {
 			/* $function   */ array( $this, 'page' )
 		);
 	}
-
+	
+	/**
+	 * Save settings
+	 * 
+	 * @since   2.0.0  03/26/2012
+	 * @return  void
+	 */
 	public function save() {
 		
-		if ( ! isset( $_POST[ 'action' ] ) || $_POST[ 'action' ] != 'update' )
+		if ( ! isset( $_POST[ 'action' ] ) || $_POST[ 'action' ] != 'update' || $_GET[ 'page' ] != 'inpsyde-multisite-feed-page' )
 			return;
-
+		
 		if ( ! wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'inpsmf-options') )
 			wp_die( 'Sorry, you failed the nonce test.' ); 
-
+		
 		update_site_option( 'inpsyde_multisitefeed', $_REQUEST[ 'inpsyde_multisitefeed' ] );
-
+		
 		do_action( 'inpsmf_update_settings' );
-
+		
 		if ( isset( $_REQUEST[ '_wp_http_referer' ] ) )
 			wp_redirect( $_REQUEST[ '_wp_http_referer' ] );
 	}
@@ -61,7 +67,7 @@ class Inpsyde_Settings_Page {
 	/**
 	 * Get settings pages incl. markup
 	 * 
-	 * @authors et, fb
+	 * @author  et, fb
 	 * @since   2.0.0  03/26/2012
 	 * @return  void
 	 */

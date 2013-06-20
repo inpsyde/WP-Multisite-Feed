@@ -3,8 +3,21 @@ namespace Inpsyde\MultisiteFeed;
 
 require_once dirname( __FILE__) . '/class-settings-page.php';
 
-load_plugin_textdomain( 'inps-multisite-feed', FALSE, str_replace( 'inc', '', dirname( plugin_basename(__FILE__) ) )
- . 'languages' );
+// Load translation file
+add_action( 'load-settings_page_inpsyde-multisite-feed-page', 'Inpsyde\MultisiteFeed\localize_plugin' );
+/**
+ * Load plugin translation
+ * 
+ * @since   06/06/2013
+ * @return  void
+ */
+function localize_plugin() {
+	
+	load_plugin_textdomain(
+		'inps-multisite-feed',
+		FALSE,
+		str_replace( 'inc', '', dirname( plugin_basename(__FILE__) ) ) . 'languages' );
+}
 
 // network activation check
 if ( is_network_admin() ) {
