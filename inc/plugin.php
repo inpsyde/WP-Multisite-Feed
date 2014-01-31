@@ -103,7 +103,7 @@ function display_feed() {
 			SELECT
 				blog.`blog_id`
 			FROM
-				".$wpdb->base_prefix."blogs AS blog 
+				" . $wpdb::get_blog_prefix( $blog_id ) . "blogs AS blog 
 			WHERE
 				blog.`public` = '1'
 				AND blog.`archived` = '0'
@@ -121,7 +121,7 @@ function display_feed() {
 		foreach( $blogs as $blog_id ) {
 			
 			if ( $only_podcasts ) {
-				$only_podcasts_sql_from  = ", `" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "postmeta` AS postmeta";
+				$only_podcasts_sql_from  = ", `" . $wpdb::get_blog_prefix( $blog_id ) . "postmeta` AS postmeta";
 				$only_podcasts_sql_where = "AND posts.`ID` = postmeta.`post_id`";
 				$only_podcasts_sql       = "AND (postmeta.`meta_key` = 'enclosure' OR postmeta.`meta_key` = '_podPressMedia')";
 			} else {
@@ -130,11 +130,13 @@ function display_feed() {
 				$only_podcasts_sql = '';
 			}
 			
+			// $wpdb::get_blog_prefix( $blog_id )
+			// $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '')
 			$results = $wpdb->get_results( "
 				SELECT
 					posts.`ID`, posts.`post_date_gmt` AS date
 				FROM
-					`" . $wpdb->base_prefix . ($blog_id > 1 ? $blog_id . '_' : '') . "posts` AS posts
+					`" . $wpdb::get_blog_prefix( $blog_id ) . "posts` AS posts
 					$only_podcasts_sql_from
 				WHERE
 					posts.`post_type` = 'post'
@@ -220,49 +222,50 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 >
 
 <channel>
-		<title><?php echo get_feed_title(); ?></title>
-		<atom:link href="<?php echo get_feed_url(); ?>" rel="self" type="application/rss+xml" />
-		<link><?php echo get_feed_url(); ?></link>
-		<description><?php echo get_feed_description(); ?></description>
-		<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
-		<language><?php echo $rss_language; ?></language>
-		<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
-		<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
-		<?php do_action( 'rss2_head' ); ?>
+	<title><?php echo get_feed_title(); ?></title>
+	<atom:link href="<?php echo get_feed_url(); ?>" rel="self" type="application/rss+xml" />
+	<link><?php echo get_feed_url(); ?></link>
+	<description><?php echo get_feed_description(); ?></description>
+	<lastBuildDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE ); ?></lastBuildDate>
+	<language><?php echo $rss_language; ?></language>
+	<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
+	<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
+	<?php do_action( 'rss2_head' );
+	
+	foreach ( $feed_items as $feed_item ):
+		switch_to_blog( $feed_item->blog_id );
+		$post = get_post( $feed_item->ID );
+		setup_postdata( $post ); ?>
 		
-		<?php foreach ( $feed_items as $feed_item ): ?>
-			<?php switch_to_blog( $feed_item->blog_id ); ?>
-			<?php $post = get_post( $feed_item->ID ); ?>
-			<?php setup_postdata( $post ); ?>
+		<item>
+			<title><?php the_title_rss() ?></title>
+			<link><?php the_permalink_rss() ?></link>
+			<comments><?php comments_link_feed(); ?></comments>
+			<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', TRUE ), FALSE ); ?></pubDate>
+			<dc:creator><?php the_author(); ?></dc:creator>
+			<?php the_category_rss( 'rss2' ); ?>
 			
-			<item>
-				<title><?php the_title_rss() ?></title>
-				<link><?php the_permalink_rss() ?></link>
-				<comments><?php comments_link_feed(); ?></comments>
-				<pubDate><?php echo mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', TRUE ), FALSE ); ?></pubDate>
-				<dc:creator><?php the_author() ?></dc:creator>
-				<?php the_category_rss( 'rss2' ) ?>
-				
-				<guid isPermaLink="false"><?php the_guid(); ?></guid>
-		<?php if ( get_option('rss_use_excerpt') ) : ?>
-				<description><![CDATA[<?php the_excerpt_rss() ?>]]></description>
+			<guid isPermaLink="false"><?php the_guid(); ?></guid>
+	<?php if ( get_option('rss_use_excerpt') ) : ?>
+			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
+	<?php else : ?>
+			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
+		<?php $content = get_the_content_feed('rss2'); ?>
+		<?php if ( strlen( $content ) > 0 ) : ?>
+			<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
 		<?php else : ?>
-				<description><![CDATA[<?php the_excerpt_rss() ?>]]></description>
-			<?php if ( strlen( $post->post_content ) > 0 ) : ?>
-				<content:encoded><![CDATA[<?php the_content_feed('rss2') ?>]]></content:encoded>
-			<?php else : ?>
-				<content:encoded><![CDATA[<?php the_excerpt_rss() ?>]]></content:encoded>
-			<?php endif; ?>
+			<content:encoded><![CDATA[<?php the_excerpt_rss() ?>]]></content:encoded>
 		<?php endif; ?>
-				<wfw:commentRss><?php echo esc_url( get_post_comments_feed_link( NULL, 'rss2' ) ); ?></wfw:commentRss>
-				<slash:comments><?php echo get_comments_number(); ?></slash:comments>
-		<?php rss_enclosure(); ?>
-			<?php do_action( 'rss2_item' ); ?>
-			</item>
-			
-			<?php restore_current_blog(); ?>
-		<?php endforeach ?>
+	<?php endif; ?>
+			<wfw:commentRss><?php echo esc_url( get_post_comments_feed_link( NULL, 'rss2' ) ); ?></wfw:commentRss>
+			<slash:comments><?php echo get_comments_number(); ?></slash:comments>
+	<?php rss_enclosure();
+		do_action( 'rss2_item' ); ?>
+		</item>
 		
+		<?php restore_current_blog();
+	endforeach ?>
+	
 </channel>
 </rss>
 <?php
