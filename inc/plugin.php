@@ -93,6 +93,7 @@ function display_feed() {
 		$max_entries          = Settings\get_site_option( 'max_entries' );
 		$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
 		$only_podcasts        = Settings\get_site_option( 'only_podcasts' );
+		$use_excerpt          = Settings\get_site_option( 'use_excerpt' );
 		
 		if ( $excluded_blogs )
 			$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
@@ -196,6 +197,36 @@ function invalidate_cache() {
 }
 
 /**
+ * Retrieve the post content for feeds with the custom option for full or excerpt text.
+ *
+ * @since  02/01/2014
+ * @param  string $feed_type The type of feed. rss2 | atom | rss | rdf
+ * @return string The filtered content.
+ */
+function get_the_content_feed( $feed_type = NULL ) {
+	
+	if ( ! $feed_type )
+		$feed_type = get_default_feed();
+	
+	global $more;
+	$temp    = $more;
+	$more    = (int) Settings\get_site_option( 'use_excerpt' );
+	/** This filter is documented in wp-admin/post-template.php */
+	$content = apply_filters( 'the_content', get_the_content() );
+	$content = str_replace( ']]>', ']]&gt;', $content );
+	$more    = $temp;
+	
+	/**
+	 * Filter the post content for use in feeds.
+	 * 
+	 * @param string $content   The current post content.
+	 * @param string $feed_type Type of feed. Possible values include 'rss2', 'atom'.
+	 *                          Default 'rss2'.
+	 */
+	return apply_filters( 'the_content_feed', $content, $feed_type );
+}
+
+/**
  * Return XML for full feed.
  * 
  * @param   array $feed_items Array of objects. Required attributes: ID (=post id), blog_id
@@ -250,7 +281,7 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 	<?php else : ?>
 			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
-		<?php $content = get_the_content_feed( 'rss2' ); ?>
+		<?php $content = \Inpsyde\MultisiteFeed\get_the_content_feed( 'rss2' ); ?>
 		<?php if ( strlen( $content ) > 0 ) : ?>
 			<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
 		<?php else : ?>
@@ -275,6 +306,9 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 	
 	return $xml;
 }
+
+// set new filter to feed content
+add_filter( 'pre_option_rss_use_excerpt', '__return_zero' );
 
 // invalidate cache when necessary
 add_action( 'init', function () {
@@ -307,19 +341,3 @@ add_action( 'init', function () {
 		exit;
 	}
 } );
-
-/**
- * Simple helper to debug to the console
- * 
- * $data   Array, String $data
- * @return void
- */
-function debug_to_console( $data ) {
-	
-	if ( is_array( $data ) )
-		$output = "<script>console.log( 'Debug Multisite-Feed: " . implode( ',', $data) . "' );</script>";
-	else
-		$output = "<script>console.log( 'Debug Multisite-Feed: " . $data . "' );</script>";
-		
-	echo $output;
-}
