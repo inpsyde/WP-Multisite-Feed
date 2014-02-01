@@ -103,7 +103,7 @@ function display_feed() {
 			SELECT
 				blog.`blog_id`
 			FROM
-				" . $wpdb::get_blog_prefix( $blog_id ) . "blogs AS blog 
+				" . $wpdb->base_prefix . "blogs AS blog 
 			WHERE
 				blog.`public` = '1'
 				AND blog.`archived` = '0'
@@ -121,7 +121,7 @@ function display_feed() {
 		foreach( $blogs as $blog_id ) {
 			
 			if ( $only_podcasts ) {
-				$only_podcasts_sql_from  = ", `" . $wpdb::get_blog_prefix( $blog_id ) . "postmeta` AS postmeta";
+				$only_podcasts_sql_from  = ", `" . $wpdb->get_blog_prefix( $blog_id ) . "postmeta` AS postmeta";
 				$only_podcasts_sql_where = "AND posts.`ID` = postmeta.`post_id`";
 				$only_podcasts_sql       = "AND (postmeta.`meta_key` = 'enclosure' OR postmeta.`meta_key` = '_podPressMedia')";
 			} else {
@@ -136,7 +136,7 @@ function display_feed() {
 				SELECT
 					posts.`ID`, posts.`post_date_gmt` AS date
 				FROM
-					`" . $wpdb::get_blog_prefix( $blog_id ) . "posts` AS posts
+					`" . $wpdb->get_blog_prefix( $blog_id ) . "posts` AS posts
 					$only_podcasts_sql_from
 				WHERE
 					posts.`post_type` = 'post'
@@ -246,11 +246,11 @@ echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>
 			<?php the_category_rss( 'rss2' ); ?>
 			
 			<guid isPermaLink="false"><?php the_guid(); ?></guid>
-	<?php if ( get_option('rss_use_excerpt') ) : ?>
+	<?php if ( get_option( 'rss_use_excerpt' ) ) : ?>
 			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 	<?php else : ?>
 			<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
-		<?php $content = get_the_content_feed('rss2'); ?>
+		<?php $content = get_the_content_feed( 'rss2' ); ?>
 		<?php if ( strlen( $content ) > 0 ) : ?>
 			<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
 		<?php else : ?>
