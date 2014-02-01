@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Inpsyde Multisite Feed v1.0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-02 00:31+0100\n"
-"PO-Revision-Date: 2014-02-02 00:32+0100\n"
+"PO-Revision-Date: 2014-02-02 00:34+0100\n"
 "Last-Translator: Frank Bültge <frank@bueltge.de>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -83,7 +83,7 @@ msgstr "Aktuell werden podPress und Blubrry PowerPress als Plugin unterstützt."
 # @ inps-multisite-feed
 #: inc/class-settings-page.php:159
 msgid "Full Feed"
-msgstr "ganzen Text"
+msgstr "Ganzen Text"
 
 #: inc/class-settings-page.php:163
 msgid "For each article in a feed, show full text."
