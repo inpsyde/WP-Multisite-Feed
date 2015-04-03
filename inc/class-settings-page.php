@@ -147,6 +147,15 @@ class Inpsyde_Settings_Page {
 						</tr>
 						<tr valign="top">
 							<th scope="row">
+								<label for="inpsmf_only_blogs"><?php _e( 'Include authors', 'inps-multisite-feed' ) ?></label>
+							</th>
+							<td>
+								<input class="regular-text" type="text" value="<?php echo get_site_option( 'only_authors', '' ); ?>" name="inpsyde_multisitefeed[only_authors]" id="inpsmf_only_authors">
+								<p><?php _e( 'Author IDs, separated by comma. Leave empty to include all authors.', 'inps-multisite-feed' ) ?></p>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row">
 								<label for="inpsmf_only_podcasts"><?php _e( 'Only include podcast episodes', 'inps-multisite-feed' ) ?></label>
 							</th>
 							<td>
