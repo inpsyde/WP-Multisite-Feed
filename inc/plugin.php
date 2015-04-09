@@ -274,7 +274,7 @@ function get_feed_xml( $feed_items ) {
 	}
 
 	ob_start();
-	echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>'; ?>
+	echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>'; ?>
 
 	<rss version="2.0"
 		xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -287,16 +287,16 @@ function get_feed_xml( $feed_items ) {
 		>
 
 		<channel>
-			<title><?php echo get_feed_title(); ?></title>
-			<atom:link href="<?php echo get_feed_url(); ?>" rel="self" type="application/rss+xml" />
-			<link><?php echo get_feed_url(); ?></link>
-			<description><?php echo get_feed_description(); ?></description>
+			<title><?php echo esc_attr( get_feed_title() ); ?></title>
+			<atom:link href="<?php echo esc_url( get_feed_url() ); ?>" rel="self" type="application/rss+xml" />
+			<link><?php echo esc_url( get_feed_url() ); ?></link>
+			<description><?php echo esc_attr( get_feed_description() ); ?></description>
 			<lastBuildDate><?php echo mysql2date(
 					'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE
 				); ?></lastBuildDate>
-			<language><?php echo $rss_language; ?></language>
-			<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
-			<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
+			<language><?php echo esc_attr( $rss_language ); ?></language>
+			<sy:updatePeriod><?php echo esc_attr( apply_filters( 'rss_update_period', 'hourly' ) ); ?></sy:updatePeriod>
+			<sy:updateFrequency><?php echo (int) apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
 			<?php do_action( 'rss2_head' );
 
 			foreach ( $feed_items as $feed_item ):
@@ -329,7 +329,7 @@ function get_feed_xml( $feed_items ) {
 					<wfw:commentRss><?php echo esc_url(
 							get_post_comments_feed_link( NULL, 'rss2' )
 						); ?></wfw:commentRss>
-					<slash:comments><?php echo get_comments_number(); ?></slash:comments>
+					<slash:comments><?php echo (int) get_comments_number(); ?></slash:comments>
 					<?php rss_enclosure();
 					do_action( 'rss2_item' ); ?>
 				</item>
