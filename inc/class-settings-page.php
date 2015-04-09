@@ -50,7 +50,7 @@ class Inpsyde_Settings_Page {
 	 */
 	public function save() {
 
-		if ( ! isset( $_POST[ 'action' ] ) || $_POST[ 'action' ] != 'update' || $_GET[ 'page' ] != 'inpsyde-multisite-feed-page' )
+		if ( ! isset( $_POST[ 'action' ] ) || 'update' !== $_POST[ 'action' ] || 'inpsyde-multisite-feed-page' !== $_GET[ 'page' ] )
 			return;
 
 		if ( ! wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'inpsmf-options') )
