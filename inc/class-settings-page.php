@@ -93,7 +93,7 @@ class Inpsyde_Settings_Page {
 
 				<?php
 				echo '<input type="hidden" name="action" value="update" />';
-				wp_nonce_field( "inpsmf-options" );
+				wp_nonce_field( 'inpsmf-options' );
 				?>
 
 				<table class="form-table">
@@ -103,9 +103,9 @@ class Inpsyde_Settings_Page {
 							<label for="inpsmf_title"><?php _e( 'Title', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo esc_attr( get_site_option(
 								'title', ''
-							); ?>" name="inpsyde_multisitefeed[title]" id="inpsmf_title">
+							) ); ?>" name="inpsyde_multisitefeed[title]" id="inpsmf_title">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -113,9 +113,9 @@ class Inpsyde_Settings_Page {
 							<label for="inpsmf_description"><?php _e( 'Description', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
-							<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo get_site_option(
+							<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo esc_attr( get_site_option(
 									'description', ''
-								); ?></textarea>
+								) ); ?></textarea>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -123,9 +123,9 @@ class Inpsyde_Settings_Page {
 							<label for="inpsmf_url_slug"><?php _e( 'Url', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo esc_url( get_site_option(
 								'url_slug', 'multifeed'
-							); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
+							) ); ?>" name="inpsyde_multisitefeed[url_slug]" id="inpsmf_url_slug">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -135,9 +135,9 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo esc_attr( get_site_option(
 								'language_slug', 'en'
-							); ?>" name="inpsyde_multisitefeed[language_slug]" id="inpsmf_language_slug">
+							) ); ?>" name="inpsyde_multisitefeed[language_slug]" id="inpsmf_language_slug">
 
 							<p><?php _e(
 									'Language key for the feed. Use the keys from the <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO-639 language key</a>, not the same as the WPLANG constant.',
@@ -152,7 +152,7 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo (int) get_site_option(
 								'max_entries_per_site', 20
 							); ?>" name="inpsyde_multisitefeed[max_entries_per_site]" id="inpsmf_max_entries_per_site">
 						</td>
@@ -164,7 +164,7 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo (int) get_site_option(
 								'max_entries', 100
 							); ?>" name="inpsyde_multisitefeed[max_entries]" id="inpsmf_max_entries">
 						</td>
@@ -176,9 +176,9 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo esc_attr( get_site_option(
 								'excluded_blogs', ''
-							); ?>" name="inpsyde_multisitefeed[excluded_blogs]" id="inpsmf_excluded_blogs">
+							) ); ?>" name="inpsyde_multisitefeed[excluded_blogs]" id="inpsmf_excluded_blogs">
 
 							<p><?php _e(
 									'Blog IDs, separated by comma. Leave empty to include all blogs.',
@@ -225,7 +225,7 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input class="regular-text" type="text" value="<?php echo get_site_option(
+							<input class="regular-text" type="text" value="<?php echo (int) get_site_option(
 								'cache_expiry_minutes', 60
 							); ?>" name="inpsyde_multisitefeed[cache_expiry_minutes]" id="inpsmf_cache_expiry_minutes">
 
@@ -238,7 +238,7 @@ class Inpsyde_Settings_Page {
 						</th>
 						<td>
 							<?php $url = \Inpsyde\MultisiteFeed\get_feed_url(); ?>
-							<a target="_blank" href="<?php echo $url ?>"><?php echo $url ?></a>
+							<a target="_blank" href="<?php echo esc_url( $url ); ?>"><?php echo esc_url( $url ); ?></a>
 						</td>
 					</tr>
 					</tbody>
