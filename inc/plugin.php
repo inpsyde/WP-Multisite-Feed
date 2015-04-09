@@ -98,10 +98,10 @@ function display_feed() {
 		$max_entries          = Settings\get_site_option( 'max_entries' );
 		$excluded_blogs       = Settings\get_site_option( 'excluded_blogs' );
 		$only_podcasts        = Settings\get_site_option( 'only_podcasts' );
-		$use_excerpt          = Settings\get_site_option( 'use_excerpt' );
+		$only_authors         = Settings\get_site_option( 'only_authors' );
 
 		if ( $excluded_blogs ) {
-			$excluded_blogs_sql = "AND blog.`blog_id` NOT IN (" . $excluded_blogs . ")";
+			$excluded_blogs_sql = 'AND blog.`blog_id` NOT IN (' . $excluded_blogs . ')';
 		} else {
 			$excluded_blogs_sql = '';
 		}
@@ -123,7 +123,7 @@ function display_feed() {
 		);
 
 		if ( ! is_array( $blogs ) ) {
-			wp_die( "There are no blogs." );
+			wp_die( 'There are no blogs.' );
 		}
 
 		$feed_items = array();
@@ -138,6 +138,12 @@ function display_feed() {
 				$only_podcasts_sql_from  = '';
 				$only_podcasts_sql_where = '';
 				$only_podcasts_sql       = '';
+			}
+
+			if ( $only_authors ) {
+				$only_authors_sql = 'AND post.`author_id` IN (' . $only_authors . ')';
+			} else {
+				$only_authors_sql = '';
 			}
 
 			// $wpdb::get_blog_prefix( $blog_id )
@@ -156,6 +162,7 @@ function display_feed() {
 					AND posts.`post_password` = ''
 					AND posts.`post_date_gmt` < '" . gmdate( "Y-m-d H:i:s" ) . "'
 					$only_podcasts_sql
+					$only_authors_sql
 				ORDER BY
 					posts.post_date_gmt DESC
 				LIMIT 0,"
@@ -182,13 +189,13 @@ function display_feed() {
 
 		// sort by date
 		uasort(
-			$feed_items, function ( $a, $b ) {
+			$feed_items, function ( $key_a, $key_b ) {
 
-			if ( $a->date == $b->date ) {
+			if ( $key_a->date == $key_b->date ) {
 				return 0;
 			}
 
-			return ( $a->date > $b->date ) ? - 1 : 1;
+			return ( $key_a->date > $key_b->date ) ? - 1 : 1;
 		}
 		);
 
