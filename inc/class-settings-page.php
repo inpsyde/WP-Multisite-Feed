@@ -3,13 +3,13 @@ namespace Inpsyde\MultisiteFeed\Settings;
 
 /**
  * Convenience wrapper to access plugin options.
- * 
+ *
  * @param  string $name	option name
  * @param  mixed  $default fallback value if option does not exist
  * @return mixed
  */
 function get_site_option( $name, $default = NULL ) {
-	
+
 	$options = \get_site_option( 'inpsyde_multisitefeed' );
 
 	return ( isset( $options[ $name ] ) ) ? $options[ $name ] : $default;
@@ -17,21 +17,21 @@ function get_site_option( $name, $default = NULL ) {
 
 /**
  * Settings Page Class
- * 
+ *
  * @authors et, fb
  * @since   2.0.0  03/26/2012
  */
 class Inpsyde_Settings_Page {
-	
+
 	private $page_hook;
-	
+
 	public function __construct() {
 		add_action( 'network_admin_menu', array( $this, 'init_menu' ) );
 		add_action( 'network_admin_menu', array( $this, 'save' ) );
 	}
-	
+
 	public function init_menu() {
-		
+
 		$this->page_hook = add_submenu_page(
 			/* $parent_slug*/ 'settings.php',
 			/* $page_title */ 'Multisite Feed',
@@ -41,32 +41,32 @@ class Inpsyde_Settings_Page {
 			/* $function   */ array( $this, 'page' )
 		);
 	}
-	
+
 	/**
 	 * Save settings
-	 * 
+	 *
 	 * @since   2.0.0  03/26/2012
 	 * @return  void
 	 */
 	public function save() {
-		
+
 		if ( ! isset( $_POST[ 'action' ] ) || $_POST[ 'action' ] != 'update' || $_GET[ 'page' ] != 'inpsyde-multisite-feed-page' )
 			return;
-		
+
 		if ( ! wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'inpsmf-options') )
-			wp_die( 'Sorry, you failed the nonce test.' ); 
-		
+			wp_die( 'Sorry, you failed the nonce test.' );
+
 		update_site_option( 'inpsyde_multisitefeed', $_REQUEST[ 'inpsyde_multisitefeed' ] );
-		
+
 		do_action( 'inpsmf_update_settings' );
-		
+
 		if ( isset( $_REQUEST[ '_wp_http_referer' ] ) )
 			wp_redirect( $_REQUEST[ '_wp_http_referer' ] );
 	}
-	
+
 	/**
 	 * Get settings pages incl. markup
-	 * 
+	 *
 	 * @author  et, fb
 	 * @since   2.0.0  03/26/2012
 	 * @return  void
@@ -75,12 +75,11 @@ class Inpsyde_Settings_Page {
 		?>
 		<div class="wrap">
 
-			<?php screen_icon( 'options-general' ); ?>
 			<h2><?php _e( 'Multisite Feed Settings', 'inps-multisite-feed' ); ?></h2>
-			
+
 			<form method="post" action="#">
 
-				<?php 
+				<?php
 				echo '<input type="hidden" name="action" value="update" />';
 				wp_nonce_field( "inpsmf-options" );
 				?>
@@ -185,9 +184,9 @@ class Inpsyde_Settings_Page {
 				</table>
 				<?php submit_button( __( 'Save Changes' ), 'button-primary', 'submit', TRUE ); ?>
 			</form>
-			
+
 		</div>
 		<?php
 	}
-	
+
 }
