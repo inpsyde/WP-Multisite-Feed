@@ -347,8 +347,8 @@ function get_feed_xml( $feed_items ) {
 	return $xml;
 }
 
-// set new filter to feed content
-add_filter( 'pre_option_rss_use_excerpt', '__return_zero' );
+// Set always fullfeed
+//add_filter( 'pre_option_rss_use_excerpt', '__return_zero' );
 
 // invalidate cache when necessary
 add_action(
@@ -360,13 +360,12 @@ add_action(
 		'save_post',
 		'trashed_post',
 		'private_to_published',
-		'inpsmf_update_settings'
+		'inpsmf_update_settings',
 	);
 
 	foreach ( $actions as $action ) {
 		add_action( $action, '\Inpsyde\MultisiteFeed\invalidate_cache' );
 	}
-
 }
 );
 

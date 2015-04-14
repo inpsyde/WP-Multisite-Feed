@@ -2,8 +2,8 @@
 Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.0
-Tested up to: 3.9
-Stable tag: 1.0.2
+Tested up to: 4.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,9 +15,9 @@ Create a separate feed for your whole multisite. This feed will have a custom ur
 = Bugs, technical hints or contribute =
 Please give me feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
 
-**Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress**
+**Crafted by [Inpsyde](http://inpsyde.com) &middot; Engineering the web since 2006.**
 
-Have a look at the premium plugins in our [market](http://marketpress.com).
+Yes, we also run that [marketplace for premium WordPress plugins and themes](http://marketpress.com).
 
 == Installation ==
 = Requirements =
@@ -55,6 +55,11 @@ Good news, this plugin is free for everyone! Since it's released under the GPL, 
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or the plugin [Localization](http://wordpress.org/extend/plugins/codestyling-localization/) for WordPress.
 
 == Changelog ==
+= 1.0.3 (2015-04-14) =
+* Add settings options to filter for authors
+* Remove fix value for filter 'pre_option_rss_use_excerpt' to set always full or excerpt
+* Code Maintenance
+
 = 1.0.2 (02/01/2014) =
  * Fix on DB select for old installations, before Multiiste (WPMU)
  * Add option for full feed
@@ -62,7 +67,7 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 = 1.0.1 (06/20/2013) =
  * Add more possibilities on Settings
  * Fix small major problems
- 
+
 = 1.0.0 =
  * Initial Release
- 
+
