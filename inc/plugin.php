@@ -288,7 +288,7 @@ function get_feed_xml( $feed_items ) {
 
 		<channel>
 			<title><?php echo esc_attr( get_feed_title() ); ?></title>
-			<atom:link href="<?php echo esc_url( get_feed_url() ); ?>" rel="self" type="application/rss+xml" />
+			<atom:link href="<?php echo esc_url( get_feed_url() ); ?>" type="application/rss+xml" />
 			<link><?php echo esc_url( get_feed_url() ); ?></link>
 			<description><?php echo esc_attr( get_feed_description() ); ?></description>
 			<lastBuildDate><?php echo mysql2date(
@@ -316,6 +316,13 @@ function get_feed_xml( $feed_items ) {
 					<?php the_category_rss( 'rss2' ); ?>
 
 					<guid isPermaLink="false"><?php the_guid(); ?></guid>
+					<?php if ( has_post_thumbnail() ) : ?>
+						<image>
+							<url><?php $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' ); echo esc_url( $image[0] ); ?></url>
+							<title><?php echo esc_html( get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', TRUE ) ); ?></title>
+							<link><?php the_permalink_rss(); ?></link>
+						</image>
+					<?php endif; ?>
 					<?php if ( get_option( 'rss_use_excerpt' ) ) : ?>
 						<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 					<?php else : ?>
