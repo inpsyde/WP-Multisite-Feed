@@ -311,6 +311,7 @@ function get_feed_xml( $feed_items ) {
 					<pubDate><?php echo mysql2date(
 							'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', TRUE ), FALSE
 						); ?></pubDate>
+					<category><?php bloginfo( 'name' ); ?></category>
 					<dc:creator><?php the_author(); ?></dc:creator>
 					<?php the_category_rss( 'rss2' ); ?>
 
