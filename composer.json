@@ -1,0 +1,37 @@
+{
+  "name": "inpsyde/wp-multisite-feed",
+  "description": "Create a separate feed for your whole multisite. This feed will have a custom url. You can limit the number of entries per blog and the maximum number of entries for the whole feed.",
+  "keywords": [
+    "rss",
+    "feed",
+    "international",
+    "multi",
+    "multisite",
+    "network"
+  ],
+  "minimum-stability": "stable",
+  "license": "GPL",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Inpsyde GmbH",
+      "homepage": "https://github.com/inpsyde"
+    },
+    {
+      "name": "Eric Teubert",
+      "homepage": "https://github.com/eteubert"
+    },
+    {
+      "name": "Frank Bueltge",
+      "homepage": "https://github.com/bueltge"
+    },
+    {
+      "name": "Moritz Meißelbach",
+      "homepage": "https://github.com/Biont"
+    }
+  ],
+  "require": {
+  },
+  "require-dev": {
+  }
+}
