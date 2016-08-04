@@ -238,13 +238,30 @@ class Inpsyde_Settings_Page {
 							<label for="inpsmf_use_excerpt"><?php _e( 'Full Feed', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
-							<input id="inpsmf_use_excerpt" name="inpsyde_multisitefeed[use_excerpt]" type="checkbox" value="1" <?php if ( get_site_option(
-								'use_excerpt', ''
-							) ) {
-								checked( '1', get_site_option( 'use_excerpt', '' ) );
-							} ?> />
+							<input
+								id="inpsmf_use_excerpt"
+								name="inpsyde_multisitefeed[use_more]"
+								type="checkbox"
+								value="1"
+								<?php checked( '1', get_site_option( 'use_more', '' )); ?>
+							/>
 
 							<p><?php _e( 'For each article in a feed, show full text.', 'inps-multisite-feed' ) ?></p>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="inpsmf_use_excerpt"><?php _e( 'Use excerpt', 'inps-multisite-feed' ) ?></label>
+						</th>
+						<td>
+							<input
+								id="inpsmf_use_excerpt"
+								name="inpsyde_multisitefeed[use_excerpt]"
+								type="checkbox" value="1"
+								<?php checked( '1', get_site_option( 'use_excerpt', '' ) ); ?>
+							/>
+
+							<p><?php _e( 'For each article in a feed, use the excerpt.', 'inps-multisite-feed' ) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">

@@ -87,7 +87,7 @@ function display_feed() {
 
 	// Deactivate Caching for Debugging
 	if ( defined( 'WP_DEBUG' ) && WP_DEBUG
-		|| ( 0 === Settings\get_site_option( 'cache_expiry_minutes' ) )
+	     || ( 0 === Settings\get_site_option( 'cache_expiry_minutes' ) )
 	) {
 		$out = FALSE;
 	}
@@ -237,14 +237,20 @@ function get_the_content_feed( $feed_type = NULL ) {
 	if ( ! $feed_type ) {
 		$feed_type = get_default_feed();
 	}
+	$use_excerpt = (int) Settings\get_site_option( 'use_excerpt' );
 
-	global $more;
-	$temp = $more;
-	$more = (int) Settings\get_site_option( 'use_excerpt' );
-	/** This filter is documented in wp-admin/post-template.php */
-	$content = apply_filters( 'the_content', get_the_content() );
-	$content = str_replace( ']]>', ']]&gt;', $content );
-	$more    = $temp;
+	if ( $use_excerpt ) {
+		$content = get_the_excerpt();
+	} else {
+
+		global $more;
+		$temp = $more;
+		$more = (int) Settings\get_site_option( 'use_more' );
+		/** This filter is documented in wp-admin/post-template.php */
+		$content = apply_filters( 'the_content', get_the_content() );
+		$content = str_replace( ']]>', ']]&gt;', $content );
+		$more    = $temp;
+	}
 
 	/**
 	 * Filter the post content for use in feeds.
@@ -284,7 +290,7 @@ function get_feed_xml( $feed_items ) {
 		xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 		xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
 		<?php do_action( 'rss2_ns' ); ?>
-		>
+	>
 
 		<channel>
 			<title><?php echo esc_attr( get_feed_title() ); ?></title>
@@ -318,8 +324,10 @@ function get_feed_xml( $feed_items ) {
 					<guid isPermaLink="false"><?php the_guid(); ?></guid>
 					<?php if ( has_post_thumbnail() ) : ?>
 						<image>
-							<url><?php $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' ); echo esc_url( $image[0] ); ?></url>
-							<title><?php echo esc_html( get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', TRUE ) ); ?></title>
+							<url><?php $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+								echo esc_url( $image[0] ); ?></url>
+							<title><?php echo esc_html( get_post_meta( get_post_thumbnail_id(),
+									'_wp_attachment_image_alt', TRUE ) ); ?></title>
 							<link><?php the_permalink_rss(); ?></link>
 						</image>
 					<?php endif; ?>
@@ -387,7 +395,7 @@ add_action(
 		return;
 	}
 
-	$end_of_request_uri = substr( $_SERVER[ 'REQUEST_URI' ], strlen( $slug ) * - 1 );
+	$end_of_request_uri = substr( $_SERVER['REQUEST_URI'], strlen( $slug ) * - 1 );
 
 	if ( $slug === $end_of_request_uri ) {
 		display_feed();
