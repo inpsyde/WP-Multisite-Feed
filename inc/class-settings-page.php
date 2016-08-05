@@ -235,7 +235,7 @@ class Inpsyde_Settings_Page {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for="inpsmf_use_excerpt"><?php _e( 'Full Feed', 'inps-multisite-feed' ) ?></label>
+							<label for="inpsmf_use_more"><?php _e( 'Full Feed', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
 							<input
