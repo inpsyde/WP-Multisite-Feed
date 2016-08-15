@@ -289,6 +289,7 @@ function get_feed_xml( $feed_items ) {
 		xmlns:atom="http://www.w3.org/2005/Atom"
 		xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
 		xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+		xmlns:media="http://search.yahoo.com/mrss/"
 		<?php do_action( 'rss2_ns' ); ?>
 	>
 
@@ -319,6 +320,7 @@ function get_feed_xml( $feed_items ) {
 						); ?></pubDate>
 					<category><?php bloginfo( 'name' ); ?></category>
 					<dc:creator><?php the_author(); ?></dc:creator>
+					<media:thumbnail url='http://www.imagepath.jpg' height='75' width='75' />
 					<?php the_category_rss( 'rss2' ); ?>
 
 					<guid isPermaLink="false"><?php the_guid(); ?></guid>
@@ -331,10 +333,9 @@ function get_feed_xml( $feed_items ) {
 							<link><?php the_permalink_rss(); ?></link>
 						</image>
 					<?php endif; ?>
-					<?php if ( get_option( 'rss_use_excerpt' ) ) : ?>
-						<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
-					<?php else : ?>
-						<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
+					<description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
+
+					<?php if ( ! get_option( 'rss_use_excerpt' ) ) : ?>
 						<?php $content = \Inpsyde\MultisiteFeed\get_the_content_feed( 'rss2' ); ?>
 						<?php if ( strlen( $content ) > 0 ) : ?>
 							<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
