@@ -321,11 +321,11 @@ function get_feed_xml( $feed_items ) {
 					<category><?php bloginfo( 'name' ); ?></category>
 					<dc:creator><?php the_author(); ?></dc:creator>
 
-					<media:thumbnail
+					<media:content
 						url="<?php echo esc_url( get_avatar_url( get_the_author_meta( 'ID' ) ) ); ?>"
-						height="75"
-						width="75"
-					/>
+						medium="image">
+						<media:title type="html"><?php the_author() ?></media:title>
+					</media:content>
 					<?php the_category_rss( 'rss2' ); ?>
 
 					<guid isPermaLink="false"><?php the_guid(); ?></guid>
