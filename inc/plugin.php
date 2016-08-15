@@ -320,7 +320,7 @@ function get_feed_xml( $feed_items ) {
 						); ?></pubDate>
 					<category><?php bloginfo( 'name' ); ?></category>
 					<dc:creator><?php the_author(); ?></dc:creator>
-					<media:thumbnail url="<?php get_avatar_url( get_the_author_meta( 'ID' ) ) ?>" height="75"
+					<media:thumbnail url="<?php echo get_avatar_url( get_the_author_meta( 'ID' ) ) ?>" height="75"
 						width="75" />
 					<?php the_category_rss( 'rss2' ); ?>
 
