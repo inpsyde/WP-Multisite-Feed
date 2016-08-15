@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 * Remove fix value for filter 'pre_option_rss_use_excerpt' to set always full or excerpt
 Code Maintenance
+
 ## [1.0.2] (02/01/2014)
 ### Added
 * Add option for full feed
@@ -31,5 +32,6 @@ Code Maintenance
 
 ### Fixed
 * Fix small major problems
+
 ## [1.0.0]
 * Initial Release
