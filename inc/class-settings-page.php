@@ -12,11 +12,7 @@ namespace Inpsyde\MultisiteFeed\Settings;
  */
 function get_site_option( $name, $default = null ) {
 
-	static $options;
-
-	if ( is_null( $options ) ) {
-		$options = \get_site_option( 'inpsyde_multisitefeed' );
-	}
+	$options = \get_site_option( 'inpsyde_multisitefeed' );
 
 	return ( isset( $options[ $name ] ) ) ? $options[ $name ] : $default;
 }

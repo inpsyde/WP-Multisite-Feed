@@ -6,9 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 * Add option to use post excerpts in post content
 * Add composer.json and declare this package as a WordPress plugin
-
 ### Fixed
 * Changed ambiguous wording between the "use more" feature and the post excerpt feature
+* Fixed notice on saving options
 
 ## [1.0.3] (2015-04-14)
 ### Added
