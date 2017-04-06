@@ -1,4 +1,5 @@
 <?php
+
 namespace Inpsyde\MultisiteFeed\Settings;
 
 /**
@@ -9,10 +10,10 @@ namespace Inpsyde\MultisiteFeed\Settings;
  *
  * @return mixed
  */
-function get_site_option( $name, $default = NULL ) {
+function get_site_option( $name, $default = null ) {
 
 	static $options;
-	
+
 	if ( is_null( $options ) ) {
 		$options = \get_site_option( 'inpsyde_multisitefeed' );
 	}
@@ -32,8 +33,7 @@ class Inpsyde_Settings_Page {
 
 	public function __construct() {
 
-		add_action( 'network_admin_menu', array( $this, 'init_menu' ) );
-		add_action( 'network_admin_menu', array( $this, 'save' ) );
+		add_action( 'network_admin_menu', [ $this, 'init_menu' ] );
 	}
 
 	public function init_menu() {
@@ -50,33 +50,8 @@ class Inpsyde_Settings_Page {
 			/* $menu_slug  */
 			'inpsyde-multisite-feed-page',
 			/* $function   */
-			array( $this, 'page' )
+			[ $this, 'page' ]
 		);
-	}
-
-	/**
-	 * Save settings
-	 *
-	 * @since   2.0.0  03/26/2012
-	 * @return  void
-	 */
-	public function save() {
-
-		if ( ! isset( $_POST[ 'action' ] ) || 'update' !== $_POST[ 'action' ] || 'inpsyde-multisite-feed-page' !== $_GET[ 'page' ] ) {
-			return NULL;
-		}
-
-		if ( ! wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'inpsmf-options' ) ) {
-			wp_die( 'Sorry, you failed the nonce test.' );
-		}
-
-		update_site_option( 'inpsyde_multisitefeed', $_REQUEST[ 'inpsyde_multisitefeed' ] );
-
-		do_action( 'inpsmf_update_settings' );
-
-		if ( isset( $_REQUEST[ '_wp_http_referer' ] ) ) {
-			wp_redirect( $_REQUEST[ '_wp_http_referer' ] );
-		}
 	}
 
 	/**
@@ -88,6 +63,7 @@ class Inpsyde_Settings_Page {
 	 */
 	public function page() {
 
+		$this->save();
 		?>
 		<div class="wrap">
 
@@ -119,7 +95,8 @@ class Inpsyde_Settings_Page {
 							<label for="inpsmf_description"><?php _e( 'Description', 'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
-							<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40" rows="7"><?php echo esc_attr(
+							<textarea name="inpsyde_multisitefeed[description]" id="inpsmf_description" cols="40"
+								rows="7"><?php echo esc_attr(
 									get_site_option(
 										'description', ''
 									)
@@ -226,7 +203,8 @@ class Inpsyde_Settings_Page {
 								) ?></label>
 						</th>
 						<td>
-							<input id="inpsmf_only_podcasts" name="inpsyde_multisitefeed[only_podcasts]" type="checkbox" value="1" <?php if ( get_site_option(
+							<input id="inpsmf_only_podcasts" name="inpsyde_multisitefeed[only_podcasts]" type="checkbox"
+								value="1" <?php if ( get_site_option(
 								'only_podcasts', ''
 							) ) {
 								checked( '1', get_site_option( 'only_podcasts', '' ) );
@@ -247,7 +225,7 @@ class Inpsyde_Settings_Page {
 								name="inpsyde_multisitefeed[use_more]"
 								type="checkbox"
 								value="1"
-								<?php checked( '1', get_site_option( 'use_more', '' )); ?>
+								<?php checked( '1', get_site_option( 'use_more', '' ) ); ?>
 							/>
 
 							<p><?php _e( 'For each article in a feed, show full text.', 'inps-multisite-feed' ) ?></p>
@@ -293,11 +271,33 @@ class Inpsyde_Settings_Page {
 					</tr>
 					</tbody>
 				</table>
-				<?php submit_button( __( 'Save Changes' ), 'button-primary', 'submit', TRUE ); ?>
+				<?php submit_button( __( 'Save Changes' ), 'button-primary', 'submit', true ); ?>
 			</form>
 
 		</div>
 		<?php
+	}
+
+	/**
+	 * Save settings
+	 *
+	 * @since   2.0.0  03/26/2012
+	 * @return  void
+	 */
+	public function save() {
+
+		if ( ! isset( $_POST['action'] ) || 'update' !== $_POST['action'] || 'inpsyde-multisite-feed-page' !== $_GET['page'] ) {
+			return null;
+		}
+
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'inpsmf-options' ) ) {
+			wp_die( 'Sorry, you failed the nonce test.' );
+		}
+
+		update_site_option( 'inpsyde_multisitefeed', $_REQUEST['inpsyde_multisitefeed'] );
+
+		do_action( 'inpsmf_update_settings' );
+
 	}
 
 }
