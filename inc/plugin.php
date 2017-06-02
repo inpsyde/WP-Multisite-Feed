@@ -1,4 +1,5 @@
 <?php
+
 namespace Inpsyde\MultisiteFeed;
 
 require_once dirname( __FILE__ ) . '/class-settings-page.php';
@@ -15,7 +16,7 @@ function localize_plugin() {
 
 	load_plugin_textdomain(
 		'inps-multisite-feed',
-		FALSE,
+		false,
 		str_replace( 'inc', '', dirname( plugin_basename( __FILE__ ) ) ) . 'languages'
 	);
 }
@@ -89,10 +90,10 @@ function display_feed() {
 	if ( defined( 'WP_DEBUG' ) && WP_DEBUG
 	     || ( 0 === Settings\get_site_option( 'cache_expiry_minutes' ) )
 	) {
-		$out = FALSE;
+		$out = false;
 	}
 
-	if ( FALSE === $out ) {
+	if ( false === $out ) {
 
 		$max_entries_per_site = Settings\get_site_option( 'max_entries_per_site' );
 		$max_entries          = Settings\get_site_option( 'max_entries' );
@@ -126,7 +127,7 @@ function display_feed() {
 			wp_die( 'There are no blogs.' );
 		}
 
-		$feed_items = array();
+		$feed_items = [];
 
 		foreach ( $blogs as $blog_id ) {
 
@@ -207,7 +208,7 @@ function display_feed() {
 		set_site_transient( $cache_key, $out, 60 * Settings\get_site_option( 'cache_expiry_minutes', 60 ) );
 	}
 
-	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), TRUE );
+	header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ), true );
 	echo $out;
 }
 
@@ -232,7 +233,7 @@ function invalidate_cache() {
  *
  * @return string The filtered content.
  */
-function get_the_content_feed( $feed_type = NULL ) {
+function get_the_content_feed( $feed_type = null ) {
 
 	if ( ! $feed_type ) {
 		$feed_type = get_default_feed();
@@ -299,7 +300,7 @@ function get_feed_xml( $feed_items ) {
 			<link><?php echo esc_url( get_feed_url() ); ?></link>
 			<description><?php echo esc_attr( get_feed_description() ); ?></description>
 			<lastBuildDate><?php echo mysql2date(
-					'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), FALSE
+					'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), false
 				); ?></lastBuildDate>
 			<language><?php echo esc_attr( $rss_language ); ?></language>
 			<sy:updatePeriod><?php echo esc_attr( apply_filters( 'rss_update_period', 'hourly' ) ); ?></sy:updatePeriod>
@@ -316,7 +317,7 @@ function get_feed_xml( $feed_items ) {
 					<link><?php the_permalink_rss() ?></link>
 					<comments><?php comments_link_feed(); ?></comments>
 					<pubDate><?php echo mysql2date(
-							'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', TRUE ), FALSE
+							'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false
 						); ?></pubDate>
 					<category><![CDATA[<?php bloginfo( 'name' ); ?>]]></category>
 					<dc:creator><?php the_author(); ?></dc:creator>
@@ -334,7 +335,7 @@ function get_feed_xml( $feed_items ) {
 							<url><?php $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
 								echo esc_url( $image[0] ); ?></url>
 							<title><?php echo esc_html( get_post_meta( get_post_thumbnail_id(),
-									'_wp_attachment_image_alt', TRUE ) ); ?></title>
+									'_wp_attachment_image_alt', true ) ); ?></title>
 							<link><?php the_permalink_rss(); ?></link>
 						</image>
 					<?php endif; ?>
@@ -349,7 +350,7 @@ function get_feed_xml( $feed_items ) {
 						<?php endif; ?>
 					<?php endif; ?>
 					<wfw:commentRss><?php echo esc_url(
-							get_post_comments_feed_link( NULL, 'rss2' )
+							get_post_comments_feed_link( null, 'rss2' )
 						); ?></wfw:commentRss>
 					<slash:comments><?php echo (int) get_comments_number(); ?></slash:comments>
 					<?php rss_enclosure();
@@ -376,14 +377,14 @@ function get_feed_xml( $feed_items ) {
 add_action(
 	'init', function () {
 
-	$actions = array(
+	$actions = [
 		'publish_post',
 		'deleted_post',
 		'save_post',
 		'trashed_post',
 		'private_to_published',
 		'inpsmf_update_settings',
-	);
+	];
 
 	foreach ( $actions as $action ) {
 		add_action( $action, '\Inpsyde\MultisiteFeed\invalidate_cache' );
@@ -400,10 +401,11 @@ add_action(
 	if ( ! $slug ) {
 		return;
 	}
+	$parsed_url         = parse_url( $_SERVER['REQUEST_URI'] );
+	$request_uri        = trim( $parsed_url['path'], '/' );
+	$parts              = explode( '/', $request_uri );
 
-	$end_of_request_uri = substr( $_SERVER['REQUEST_URI'], strlen( $slug ) * - 1 );
-
-	if ( $slug === $end_of_request_uri ) {
+	if ( end($parts) === $slug ) {
 		display_feed();
 		exit;
 	}
