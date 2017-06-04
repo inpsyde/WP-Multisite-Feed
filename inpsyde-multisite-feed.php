@@ -10,12 +10,42 @@
  * Network:     true
  */
 
-$correct_php_version = version_compare( phpversion(), '5.3', '>=' );
+namespace Inpsyde\MultisiteFeed;
 
-if ( ! $correct_php_version ) {
-	echo 'Inpsyde Inpsyde Multisite Feed Plugin requires <strong>PHP 5.3</strong> or higher.<br>';
-	echo 'You are running PHP ' . phpversion();
-	exit;
-}
+add_action( 'plugins_loaded', function () {
 
-require_once 'inc/plugin.php';
+	$error = function ( $message ) {
+
+		add_action( 'admin_notices', function () use ( $message ) {
+
+			$class = 'notice notice-error';
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+		} );
+	};
+
+	if ( ! version_compare( phpversion(), '5.6', '>=' ) ) {
+		$error( 'Inpsyde Multisite Feed Plugin requires <strong>PHP 5.6</strong> or higher.<br>You are running PHP ' . phpversion() );
+
+		return;
+	}
+
+	/**
+	 * Check if we're already autoloaded by some external autloader
+	 * If not, load our own
+	 */
+	if ( ! class_exists( 'Inpsyde\\MultisiteFeed\\Plugin' ) ) {
+
+		if ( file_exists( $autoloader = __DIR__ . '/vendor/autoload.php' ) ) {
+			/** @noinspection PhpIncludeInspection */
+			require $autoloader;
+		} else {
+			$error( 'Could not find a working autoloader for Inpsyde Multisite Feed.' );
+
+			return;
+		}
+	}
+
+	( DI::instance( Plugin::class ) )->init();
+} );
+
+

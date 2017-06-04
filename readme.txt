@@ -3,7 +3,7 @@ Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.0
 Tested up to: 4.3
-Stable tag: 1.1.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,8 +55,13 @@ Good news, this plugin is free for everyone! Since it's released under the GPL, 
 The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or the plugin [Localization](http://wordpress.org/extend/plugins/codestyling-localization/) for WordPress.
 
 == Changelog ==
-= 1.1.0 () =
+= 2.0.0 () =
+* Complete rewrite of entire codebase using PHP 5.6 features
+* Add composer.json
 * Add `category` tag in xml to add each site/blog title to each item
+* Improve escaping when rendering feeds
+* Allow passing query parameters into feed urls.
+* Make query args filterable
 
 = 1.0.3 (2015-04-14) =
 * Add settings options to filter for authors

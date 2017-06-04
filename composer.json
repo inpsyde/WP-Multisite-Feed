@@ -33,5 +33,22 @@
   "require": {
   },
   "require-dev": {
+    "phpunit/phpunit": "*",
+    "inpsyde/monkery-test-case": "^3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Inpsyde\\MultisiteFeed\\": "inc/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Inpsyde\\MultisiteFeed\\Test\\Helper\\": "tests/Helper/",
+      "": "tests/Stubs/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }
