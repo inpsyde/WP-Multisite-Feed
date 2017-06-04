@@ -2,7 +2,7 @@
 Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.0
-Tested up to: 4.3
+Tested up to: 4.7.5
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ Please give me feedback, contribute and file technical bugs on this [GitHub Repo
 
 **Crafted by [Inpsyde](http://inpsyde.com) &middot; Engineering the web since 2006.**
 
-Yes, we also run that [marketplace for premium WordPress plugins and themes](http://marketpress.com).
+Take a look at [our website](https://inpsyde.com/) if you like to get to know us.
 
 == Installation ==
 = Requirements =

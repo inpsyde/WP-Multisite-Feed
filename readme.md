@@ -5,12 +5,12 @@ Consolidates all network feeds into one.
 Create a separate feed for your whole multisite. This feed will have a custom url. You can limit the number of entries per blog and the maximum number of entries for the whole feed.
 
 ### Made by [Inpsyde](http://inpsyde.com) &middot; We love WordPress
-Have a look at the premium plugins in our [market](http://marketpress.com).
+Take a look at [our website](https://inpsyde.com/) if you like to get to know us.
 
 ## Installation
 ### Requirements
- * PHP 5.3 (important, use namespaces)
- * WordPress version 3.3 and later (tested at 3.5-Alpha (nightly build))
+ * PHP 5.6
+ * WordPress version 3.3 and later (tested with version 4.7.5)
 
 ### Installation
  1. Upload the plugin directory to the `/wp-content/plugins/` directory or use the installer via backend of WordPress
@@ -40,6 +40,7 @@ Please give us feedback, contribute and file technical bugs on this [GitHub Repo
  * [Inpsyde GmbH](https://github.com/inpsyde)
  * [Eric](https://github.com/eteubert)
  * [Frank](https://github.com/bueltge)
+ * [Moritz](https://github.com/Biont)
 
 ### License
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me.
@@ -52,9 +53,6 @@ The plugin is designed and developed by the team of [Inpsyde GmbH](http://inpsyd
 
 Please let us know if you like the plugin or you hate it or whatever ... Please fork it, add an issue for ideas and bugs.
 
-### Disclaimer
-We are German and our English might be gruesome here and there. So please be patient with us and let us know of typos or grammatical farts. Thanks
-
 ## Changelog
 
- * [see on the page](http://wordpress.org/extend/plugins/wp-multisite-feed/changelog/)
+ * [see plugin page](http://wordpress.org/extend/plugins/wp-multisite-feed/changelog/)
