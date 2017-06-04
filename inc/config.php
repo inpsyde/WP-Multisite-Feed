@@ -95,4 +95,5 @@ interface OptionsKeys {
 interface Hooks {
 
 	const FILTER_SITE_QUERY_ARGS = 'inpsyde.multisite_feed.site_query_args';
+	const ACTION_MULTIFEED_REQUEST = 'inpsyde.multisite_feed.valid_request';
 }
