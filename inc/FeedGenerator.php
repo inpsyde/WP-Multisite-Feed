@@ -60,10 +60,7 @@ class FeedGenerator {
 		$out       = false;
 
 		// Deactivate Caching for Debugging
-		if ( ! defined( 'WP_DEBUG' )
-		     || defined( 'WP_DEBUG' ) && WP_DEBUG
-		     || ( 0 !== $this->settings->get( OptionsKeys::CACHE_EXPIRY ) )
-		) {
+		if ( $this->is_cache_enabled() ) {
 			$out = $this->cache->get( $cache_key );
 		}
 
@@ -81,6 +78,22 @@ class FeedGenerator {
 	private function get_cache_key() {
 
 		return 'feed_' . md5( serialize( $_REQUEST ) );
+	}
+
+	private function is_cache_enabled() {
+
+		$wp_debug = ( defined( 'WP_DEBUG' ) && WP_DEBUG );
+		if ( $wp_debug ) {
+			return false;
+		}
+
+		$cache_expiry = intval( $this->settings->get( OptionsKeys::CACHE_EXPIRY ) );
+		if ( $cache_expiry === 0 ) {
+			return false;
+		}
+
+		return true;
+
 	}
 
 }
