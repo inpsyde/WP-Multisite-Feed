@@ -8,7 +8,13 @@ class SiteTransientCache extends CacheGroup {
 
 	public function __construct( $group_name, $expiration = null ) {
 
-		$this->expiration = $expiration ?: HOUR_IN_SECONDS * 10;
+		if ( is_null( $expiration ) ) {
+			$this->expiration = intval( $expiration * MINUTE_IN_SECONDS );
+
+		} else {
+			$this->expiration = HOUR_IN_SECONDS * 10;
+
+		}
 
 		parent::__construct( $group_name );
 	}

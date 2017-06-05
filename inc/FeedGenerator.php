@@ -80,7 +80,7 @@ class FeedGenerator {
 
 	private function get_cache_key() {
 
-		return 'inpsyde_multisite_feed_cache';
+		return 'feed_' . md5( serialize( $_REQUEST ) );
 	}
 
 }
