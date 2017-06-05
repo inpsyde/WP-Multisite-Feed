@@ -13,36 +13,36 @@ use MonkeryTestCase\BrainMonkeyWpTestCase;
 
 class SiteTransientCacheTest extends BrainMonkeyWpTestCase {
 
-	//public function test_value_is_cached() {
-	//
-	//	$value            = 3;
-	//	$cacheGroupName   = 'cache_group';
-	//	$expiration       = PHP_INT_MAX;
-	//	$incrementorValue = 'incrementor';
-	//	$cacheKey         = 'cache_key';
-	//	$groupCacheKey    = $cacheGroupName . $incrementorValue . $cacheKey;
-	//
-	//	$incr = \Mockery::mock( SiteTransientIncrementor::class );
-	//	$incr->shouldReceive( 'get' )
-	//	     ->twice()
-	//	     ->andReturn( $incrementorValue );
-	//
-	//	Functions::expect( 'get_site_transient' )
-	//	         ->withArgs( [ $groupCacheKey ] )
-	//	         ->once()
-	//	         ->andReturn( $value );
-	//
-	//	Functions::expect( 'set_site_transient' )
-	//	         ->withArgs( [ $groupCacheKey, $value, $expiration ] )
-	//	         ->once();
-	//	$testee = new SiteTransientCache( $cacheGroupName, $expiration, $incr );
-	//
-	//	$testee->set( $cacheKey, $value, $expiration );
-	//
-	//	$result = $testee->get( $cacheKey );
-	//
-	//	$this->assertSame( $result, $value );
-	//}
+	public function test_value_is_cached() {
+
+		$value            = 3;
+		$cacheGroupName   = 'cache_group';
+		$expiration       = PHP_INT_MAX;
+		$incrementorValue = 'incrementor';
+		$cacheKey         = 'cache_key';
+		$groupCacheKey    = $cacheGroupName . $incrementorValue . $cacheKey;
+
+		$incr = \Mockery::mock( SiteTransientIncrementor::class );
+		$incr->shouldReceive( 'get' )
+		     ->twice()
+		     ->andReturn( $incrementorValue );
+
+		Functions::expect( 'get_site_transient' )
+		         ->withArgs( [ $groupCacheKey ] )
+		         ->once()
+		         ->andReturn( $value );
+
+		Functions::expect( 'set_site_transient' )
+		         ->withArgs( [ $groupCacheKey, $value, $expiration ] )
+		         ->once();
+		$testee = new SiteTransientCache( $cacheGroupName, $expiration, $incr );
+
+		$testee->set( $cacheKey, $value, $expiration );
+
+		$result = $testee->get( $cacheKey );
+
+		$this->assertSame( $result, $value );
+	}
 
 	public function test_cache_is_flushed() {
 
