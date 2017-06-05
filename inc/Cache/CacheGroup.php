@@ -2,7 +2,6 @@
 
 namespace Inpsyde\MultisiteFeed\Cache;
 
-
 abstract class CacheGroup implements CacheHandler {
 
 	/**
@@ -12,16 +11,18 @@ abstract class CacheGroup implements CacheHandler {
 	/**
 	 * @var string
 	 */
-	private $incrementor_suffix = 'incr';
+	private $incrementor;
 
 	/**
 	 * Cache constructor.
 	 *
-	 * @param string $group_name
+	 * @param string           $group_name
+	 * @param Incrementor|null $incrementor
 	 */
-	public function __construct( $group_name ) {
+	public function __construct( $group_name, Incrementor $incrementor ) {
 
-		$this->group_name = $group_name;
+		$this->incrementor = $incrementor;
+		$this->group_name  = $group_name;
 	}
 
 	/**
@@ -29,28 +30,7 @@ abstract class CacheGroup implements CacheHandler {
 	 */
 	public function flush() {
 
-		$this->increase_incrementor();
-	}
-
-	private function increase_incrementor() {
-
-		$incrementor_value = time();
-		$this->set_incrementor_value( $incrementor_value );
-
-		return $incrementor_value;
-	}
-
-	protected abstract function set_incrementor_value( $incrementor_value );
-
-	/**
-	 * Returns the incrementor key.
-	 *
-	 * @return string
-	 */
-	protected function get_incrementor_key() {
-
-		return $this->group_name . '_' . $this->incrementor_suffix;
-
+		$this->incrementor->increase();
 	}
 
 	/**
@@ -60,23 +40,6 @@ abstract class CacheGroup implements CacheHandler {
 	 */
 	protected function get_group_name() {
 
-		return $this->group_name . $this->get_incrementor();
+		return $this->group_name . $this->incrementor->get();
 	}
-
-	/**
-	 *
-	 * @return bool|int|mixed
-	 */
-	private function get_incrementor() {
-
-		$incrementor_value = $this->get_incrementor_value();
-
-		if ( false === $incrementor_value ) {
-			$incrementor_value = $this->increase_incrementor();
-		}
-
-		return $incrementor_value;
-	}
-
-	protected abstract function get_incrementor_value();
 }

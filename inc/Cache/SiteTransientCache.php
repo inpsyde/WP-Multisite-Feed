@@ -6,7 +6,7 @@ class SiteTransientCache extends CacheGroup {
 
 	private $expiration;
 
-	public function __construct( $group_name, $expiration = null ) {
+	public function __construct( $group_name, $expiration = null, Incrementor $incrementor = null ) {
 
 		if ( is_null( $expiration ) ) {
 			$this->expiration = intval( $expiration * MINUTE_IN_SECONDS );
@@ -15,20 +15,21 @@ class SiteTransientCache extends CacheGroup {
 			$this->expiration = HOUR_IN_SECONDS * 10;
 
 		}
-
-		parent::__construct( $group_name );
+		$incrementor = $incrementor ?: new SiteTransientIncrementor( $group_name );
+		parent::__construct( $group_name, $incrementor );
 	}
 
 	/**
 	 * Store a value in a transient.
 	 *
-	 * @param $key
-	 * @param $value
+	 * @param      $key
+	 * @param      $value
+	 * @param null $expiration
 	 */
-	public function set( $key, $value ) {
+	public function set( $key, $value, $expiration = null ) {
 
-		$expiration = $this->expiration + MINUTE_IN_SECONDS * rand( 0, 60 );
-		set_site_transient( $this->get_group_name() . $key, $value, $expiration );
+		$expiration = $expiration ?: $this->expiration + MINUTE_IN_SECONDS * rand( 0, 60 );
+		\set_site_transient( $this->get_group_name() . $key, $value, $expiration );
 	}
 
 	/**
@@ -52,16 +53,6 @@ class SiteTransientCache extends CacheGroup {
 	 */
 	public function get( $key ) {
 
-		return get_site_transient( $this->get_group_name() . $key );
-	}
-
-	protected function get_incrementor_value() {
-
-		return get_site_transient( $this->get_incrementor_key() );
-	}
-
-	protected function set_incrementor_value( $incrementor_value ) {
-
-		set_site_transient( $this->get_incrementor_key(), $incrementor_value );
+		return \get_site_transient( $this->get_group_name() . $key );
 	}
 }
