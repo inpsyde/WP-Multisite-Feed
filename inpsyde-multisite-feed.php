@@ -14,7 +14,7 @@ namespace Inpsyde\MultisiteFeed;
 
 add_action( 'plugins_loaded', function () {
 
-	$error = function ( $message ) {
+	$admin_notice = function ( $message ) {
 
 		add_action( 'admin_notices', function () use ( $message ) {
 
@@ -24,7 +24,7 @@ add_action( 'plugins_loaded', function () {
 	};
 
 	if ( ! version_compare( phpversion(), '5.6', '>=' ) ) {
-		$error( 'Inpsyde Multisite Feed Plugin requires <strong>PHP 5.6</strong> or higher.<br>You are running PHP ' . phpversion() );
+		$admin_notice( 'Inpsyde Multisite Feed Plugin requires <strong>PHP 5.6</strong> or higher.<br>You are running PHP ' . phpversion() );
 
 		return;
 	}
@@ -39,7 +39,7 @@ add_action( 'plugins_loaded', function () {
 			/** @noinspection PhpIncludeInspection */
 			require $autoloader;
 		} else {
-			$error( 'Could not find a working autoloader for Inpsyde Multisite Feed.' );
+			$admin_notice( 'Could not find a working autoloader for Inpsyde Multisite Feed.' );
 
 			return;
 		}
