@@ -46,7 +46,7 @@ class Plugin {
 	 */
 	public static function get_feed_url( array $args = [] ) {
 
-		$slug = ( DI::instance( Settings::class ) )->get( OptionsKeys::URL_SLUG );
+		$slug = DI::instance( Settings::class )->get( OptionsKeys::URL_SLUG );
 		$url  = home_url( $slug );
 		$url  = add_query_arg( $args, $url );
 
@@ -60,7 +60,7 @@ class Plugin {
 
 		if ( is_admin() ) {
 			if ( is_network_admin() ) {
-				( DI::instance( SettingsPage::class ) )->init();
+				DI::instance( SettingsPage::class )->init();
 				// Load translation file
 				add_action( 'load-settings_page_inpsyde-multisite-feed-page', [ $this, 'localize_plugin' ] );
 			}
