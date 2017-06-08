@@ -45,7 +45,7 @@ add_action( 'plugins_loaded', function () {
 		}
 	}
 
-	( DI::instance( Plugin::class ) )->init();
+	DI::instance( Plugin::class )->init();
 } );
 
 
