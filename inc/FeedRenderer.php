@@ -91,9 +91,9 @@ class FeedRenderer implements Renderer {
 						<?php if ( ! $this->settings->get( 'rss_use_excerpt' ) ) : ?>
 							<?php $content = $this->get_the_content_feed( 'rss2', $feed_item ); ?>
 							<?php if ( strlen( $content ) > 0 ) : ?>
-								<content:encoded><![CDATA[content <?php echo $content; ?>]]></content:encoded>
+								<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
 							<?php else : ?>
-								<content:encoded><![CDATA[excerpt <?php echo $feed_item->get_excerpt() ?>]]></content:encoded>
+								<content:encoded><![CDATA[<?php echo $feed_item->get_excerpt() ?>]]></content:encoded>
 							<?php endif; ?>
 						<?php endif; ?>
 						<wfw:commentRss><?php echo esc_url(
