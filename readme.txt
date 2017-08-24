@@ -1,8 +1,8 @@
 === Inpsyde Multisite Feed ===
 Contributors: inpsyde, Bueltge, eteubert
 Tags: feed, rss, archive, multisite, network
-Requires at least: 3.0
-Tested up to: 4.7.5
+Requires at least: 3.3
+Tested up to: 4.8.1
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ Take a look at [our website](https://inpsyde.com/) if you like to get to know us
 
 == Installation ==
 = Requirements =
- * PHP 5.3 (important, use namespaces)
+ * PHP 5.6 or higher
  * WordPress version 3.3 and later (see tested up to)
 
 = Installation =
