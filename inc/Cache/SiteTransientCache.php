@@ -28,7 +28,7 @@ class SiteTransientCache extends CacheGroup {
 	 */
 	public function set( $key, $value, $expiration = null ) {
 
-        $expiration = $expiration ?? $this->expiration + MINUTE_IN_SECONDS * random_int(0, 60);
+        $expiration = $expiration ?: $this->expiration + MINUTE_IN_SECONDS * random_int(0, 60);
 		\set_site_transient( $this->get_group_name() . $key, $value, $expiration );
 	}
 
