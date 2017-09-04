@@ -81,12 +81,9 @@ class Plugin {
 					'inpsmf_update_settings',
 				];
 
-				foreach ( $actions as $action ) {
-					add_action( $action, function () {
-
-						$this->cache->flush();
-					} );
-				}
+                foreach ($actions as $action) {
+                    add_action($action, [$this->cache, 'flush']);
+                }
 			}
 			);
 		}
