@@ -27,12 +27,12 @@ class SiteTransientCacheTest extends BrainMonkeyWpTestCase {
 		     ->twice()
 		     ->andReturn( $incrementorValue );
 
-		Functions::expect( 'get_site_transient' )
+		Functions\expect( 'get_site_transient' )
 		         ->withArgs( [ $groupCacheKey ] )
 		         ->once()
 		         ->andReturn( $value );
 
-		Functions::expect( 'set_site_transient' )
+		Functions\expect( 'set_site_transient' )
 		         ->withArgs( [ $groupCacheKey, $value, $expiration ] )
 		         ->once();
 		$testee = new SiteTransientCache( $cacheGroupName, $expiration, $incr );
@@ -70,16 +70,16 @@ class SiteTransientCacheTest extends BrainMonkeyWpTestCase {
 		     ->once()
 		     ->andReturn( $incrementorValue2 );
 
-		Functions::expect( 'set_site_transient' )
+		Functions\expect( 'set_site_transient' )
 		         ->withArgs( [ $groupCacheKey, $value, $expiration ] )
 		         ->once();
 
-		Functions::expect( 'get_site_transient' )
+		Functions\expect( 'get_site_transient' )
 		         ->withArgs( [ $groupCacheKey ] )
 		         ->once()
 		         ->andReturn( $value );
 
-		Functions::expect( 'get_site_transient' )
+		Functions\expect( 'get_site_transient' )
 		         ->withArgs( [ $groupCacheKey2 ] )
 		         ->once()
 		         ->andReturn( false );

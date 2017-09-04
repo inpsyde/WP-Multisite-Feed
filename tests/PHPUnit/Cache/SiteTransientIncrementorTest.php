@@ -17,7 +17,7 @@ class SiteTransientIncrementorTest extends BrainMonkeyWpTestCase {
 
 		$group_name  = 'foo';
 		$incrementor = uniqid();
-		Functions::expect( 'get_site_transient' )
+		Functions\expect( 'get_site_transient' )
 		         ->once()
 		         ->andReturn( $incrementor );
 		$testee = new SiteTransientIncrementor( $group_name );
@@ -29,10 +29,10 @@ class SiteTransientIncrementorTest extends BrainMonkeyWpTestCase {
 
 		$group_name  = 'foo';
 		$incrementor = uniqid();
-		Functions::expect( 'get_site_transient' )
+		Functions\expect( 'get_site_transient' )
 		         ->once()
 		         ->andReturn( $incrementor );
-		Functions::expect( 'set_site_transient' )
+		Functions\expect( 'set_site_transient' )
 		         ->once();
 		$testee   = new SiteTransientIncrementor( $group_name );
 		$previous = $testee->get();
