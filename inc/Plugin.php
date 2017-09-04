@@ -81,9 +81,13 @@ class Plugin {
 					'inpsmf_update_settings',
 				];
 
-                foreach ($actions as $action) {
-                    add_action($action, [$this->cache, 'flush']);
-                }
+				foreach ( $actions as $action ) {
+                    add_action($action, function () {
+
+                        $this->settings->set('last_modified', current_time('mysql'));
+                        $this->cache->flush();
+                    });
+				}
 			}
 			);
 		}

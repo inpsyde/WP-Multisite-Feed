@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+* Update lastBuildDate when post in the network change
 * Add option to use post excerpts in post content
 * Add composer.json and declare this package as a WordPress plugin
 ### Fixed

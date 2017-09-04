@@ -50,7 +50,7 @@ class FeedRenderer implements Renderer {
 				<link><?php echo esc_url( Plugin::get_feed_url() ); ?></link>
 				<description><?php echo esc_attr( $this->get_feed_description() ); ?></description>
 				<lastBuildDate><?php echo mysql2date(
-						'D, d M Y H:i:s +0000', get_lastpostmodified( 'GMT' ), false
+						'D, d M Y H:i:s +0000', $this->settings->get('last_modified',get_lastpostmodified('GMT')), false
 					); ?></lastBuildDate>
 				<language><?php echo esc_attr( $rss_language ); ?></language>
 				<sy:updatePeriod>
