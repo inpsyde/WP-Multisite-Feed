@@ -87,7 +87,7 @@ class FeedGenerator {
 			return false;
 		}
 
-		$cache_expiry = intval( $this->settings->get( OptionsKeys::CACHE_EXPIRY ) );
+		$cache_expiry = (int) $this->settings->get( OptionsKeys::CACHE_EXPIRY );
 		if ( $cache_expiry === 0 ) {
 			return false;
 		}

@@ -31,7 +31,7 @@ class DI {
 	public static function instance( $classname, $singleton = true ) {
 
 		static $cache;
-		if ( is_null( $cache ) ) {
+		if ( null === $cache ) {
 			$cache = [];
 		}
 
@@ -63,7 +63,7 @@ class DI {
 	public static function get( $key, $singleton = true ) {
 
 		static $cache;
-		if ( is_null( $cache ) ) {
+		if ( null === $cache ) {
 			$cache = [];
 		}
 		if ( $singleton && isset( $cache[ $key ] ) ) {
@@ -89,9 +89,9 @@ class DI {
 	protected static function get_config() {
 
 		static $config;
-		if ( is_null( $config ) ) {
+		if ( null === $config ) {
 			/** @noinspection PhpIncludeInspection */
-			$config = require_once self::$config_path;
+			$config = require self::$config_path;
 		}
 
 		return $config;

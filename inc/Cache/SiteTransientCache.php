@@ -8,8 +8,8 @@ class SiteTransientCache extends CacheGroup {
 
 	public function __construct( $group_name, $expiration = null, Incrementor $incrementor = null ) {
 
-		if ( is_null( $expiration ) ) {
-			$this->expiration = intval( $expiration * MINUTE_IN_SECONDS );
+		if ( null === $expiration ) {
+			$this->expiration = (int) $expiration * MINUTE_IN_SECONDS;
 
 		} else {
 			$this->expiration = HOUR_IN_SECONDS * 10;
@@ -24,11 +24,11 @@ class SiteTransientCache extends CacheGroup {
 	 *
 	 * @param      $key
 	 * @param      $value
-	 * @param null $expiration
+	 * @param null|int $expiration
 	 */
 	public function set( $key, $value, $expiration = null ) {
 
-		$expiration = $expiration ?: $this->expiration + MINUTE_IN_SECONDS * rand( 0, 60 );
+        $expiration = $expiration ?? $this->expiration + MINUTE_IN_SECONDS * random_int(0, 60);
 		\set_site_transient( $this->get_group_name() . $key, $value, $expiration );
 	}
 
@@ -41,7 +41,7 @@ class SiteTransientCache extends CacheGroup {
 	 */
 	public function has( $key ) {
 
-		return ! ! $this->get( $key );
+		return (bool) $this->get( $key );
 	}
 
 	/**
