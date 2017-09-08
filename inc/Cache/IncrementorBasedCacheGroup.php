@@ -2,7 +2,9 @@
 
 namespace Inpsyde\MultisiteFeed\Cache;
 
-abstract class CacheGroup implements CacheHandler {
+use Inpsyde\MultisiteFeed\Cache\Incrementor\Incrementor;
+
+abstract class IncrementorBasedCacheGroup implements CacheHandler {
 
 	/**
 	 * @var string

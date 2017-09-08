@@ -58,7 +58,7 @@ class FeedGenerator {
 
 		$cache_key = $this->get_cache_key();
 		$out       = false;
-
+$this->cache->flush();
 		// Deactivate Caching for Debugging
         if ($cache_enabled = $this->is_cache_enabled()) {
             $out = $this->cache->get($cache_key);
@@ -68,10 +68,10 @@ class FeedGenerator {
             $feed_items = $this->item_provider->get_items();
             $out        = $this->renderer->render($feed_items);
             
-            if ($cache_enabled) {
+            //if (true||$cache_enabled) {
                 $this->cache->set($cache_key, $out);
 
-            }
+            //}
         }
 
 		header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ),

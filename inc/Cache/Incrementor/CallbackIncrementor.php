@@ -1,6 +1,6 @@
 <?php # -*- coding: utf-8 -*-
 
-namespace Inpsyde\MultisiteFeed\Cache;
+namespace Inpsyde\MultisiteFeed\Cache\Incrementor;
 
 class CallbackIncrementor implements Incrementor {
 

@@ -2,14 +2,14 @@
 
 namespace Inpsyde\MultisiteFeed\Cache;
 
+interface CacheHandler
+{
 
-interface CacheHandler {
+    public function get($key);
 
-	public function get( $key );
+    public function set($key, $value);
 
-	public function set( $key, $value );
+    public function has($key);
 
-	public function has( $key );
-
-	public function flush();
+    public function flush();
 }

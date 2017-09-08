@@ -1,8 +1,8 @@
 <?php # -*- coding: utf-8 -*-
 
-namespace Inpsyde\MultisiteFeed\Cache;
+namespace Inpsyde\MultisiteFeed\Cache\Incrementor;
 
-class SiteTransientIncrementor implements Incrementor {
+class SiteOptionIncrementor implements Incrementor {
 
 	/**
 	 * @var
@@ -29,7 +29,7 @@ class SiteTransientIncrementor implements Incrementor {
 	 */
 	public function get() {
 
-		$incrementor_value = \get_site_transient( $this->get_incrementor_key() );
+		$incrementor_value = \get_site_option( $this->get_incrementor_key() );
 
 		if ( false === $incrementor_value ) {
 			$incrementor_value = $this->increase();
@@ -52,7 +52,7 @@ class SiteTransientIncrementor implements Incrementor {
 	public function increase() {
 
 		$incrementor_value = time();
-		\set_site_transient( $this->get_incrementor_key(), $incrementor_value );
+		\update_site_option( $this->get_incrementor_key(), $incrementor_value );
 
 		return $incrementor_value;
 	}

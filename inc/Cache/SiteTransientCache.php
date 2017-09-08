@@ -2,13 +2,16 @@
 
 namespace Inpsyde\MultisiteFeed\Cache;
 
-class SiteTransientCache extends CacheGroup {
+use Inpsyde\MultisiteFeed\Cache\Incrementor\Incrementor;
+use Inpsyde\MultisiteFeed\Cache\Incrementor\SiteTransientIncrementor;
+
+class SiteTransientCache extends IncrementorBasedCacheGroup {
 
 	private $expiration;
 
 	public function __construct( $group_name, $expiration = null, Incrementor $incrementor = null ) {
 
-		if ( null === $expiration ) {
+		if ( null !== $expiration ) {
 			$this->expiration = (int) $expiration * MINUTE_IN_SECONDS;
 
 		} else {
@@ -28,7 +31,7 @@ class SiteTransientCache extends CacheGroup {
 	 */
 	public function set( $key, $value, $expiration = null ) {
 
-        $expiration = $expiration ?: $this->expiration + MINUTE_IN_SECONDS * random_int(0, 60);
+        $expiration = $expiration ?: $this->expiration;
 		\set_site_transient( $this->get_group_name() . $key, $value, $expiration );
 	}
 

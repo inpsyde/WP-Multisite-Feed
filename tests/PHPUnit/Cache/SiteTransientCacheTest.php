@@ -9,6 +9,7 @@
 namespace Inpsyde\MultisiteFeed\Cache;
 
 use Brain\Monkey\Functions;
+use Inpsyde\MultisiteFeed\Cache\Incrementor\SiteTransientIncrementor;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 
 class SiteTransientCacheTest extends BrainMonkeyWpTestCase {
