@@ -52,12 +52,9 @@ class FeedRenderer implements Renderer {
 				<link><?php echo esc_url( Plugin::get_feed_url() ); ?></link>
 				<description><?php echo esc_attr( $this->get_feed_description() ); ?></description>
 				<lastBuildDate><?php
-					$format          = 'D, d M Y H:i:s +0000';
-					$lastModified    = $this->settings->get( 'last_modified', get_lastpostmodified( 'GMT' ) );
-					$mySqlDate       = mysql2date(
-						$format, $lastModified, false
-					);
-					echo $mySqlDate;
+					$lastModified  = $this->settings->get( 'last_modified', get_lastpostmodified( 'GMT' ) );
+					$lastBuildDate = date( DATE_RFC822, strtotime( $lastModified ) );
+					echo $lastBuildDate;
 
 					?></lastBuildDate>
 				<language><?php echo esc_attr( $rss_language ); ?></language>
