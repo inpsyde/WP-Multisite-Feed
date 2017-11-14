@@ -30,6 +30,8 @@ class FeedRenderer implements Renderer {
 		if ( empty( $rss_language ) && defined( 'WPLANG' ) ) {
 			$rss_language = substr( WPLANG, 0, 2 );
 		}
+		date_default_timezone_set( get_option( 'timezone_string' ) );
+
 		ob_start();
 		echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>'; ?>
 
@@ -49,9 +51,15 @@ class FeedRenderer implements Renderer {
 				<atom:link href="<?php echo esc_url( Plugin::get_feed_url() ); ?>" type="application/rss+xml" />
 				<link><?php echo esc_url( Plugin::get_feed_url() ); ?></link>
 				<description><?php echo esc_attr( $this->get_feed_description() ); ?></description>
-				<lastBuildDate><?php echo mysql2date(
-						'D, d M Y H:i:s +0000', $this->settings->get('last_modified',get_lastpostmodified('GMT')), false
-					); ?></lastBuildDate>
+				<lastBuildDate><?php
+					$format          = 'D, d M Y H:i:s +0000';
+					$lastModified    = $this->settings->get( 'last_modified', get_lastpostmodified( 'GMT' ) );
+					$mySqlDate       = mysql2date(
+						$format, $lastModified, false
+					);
+					echo $mySqlDate;
+
+					?></lastBuildDate>
 				<language><?php echo esc_attr( $rss_language ); ?></language>
 				<sy:updatePeriod>
 					<?php echo esc_attr( apply_filters( 'rss_update_period', 'hourly' ) ); ?>
