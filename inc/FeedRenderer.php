@@ -53,7 +53,7 @@ class FeedRenderer implements Renderer {
 				<description><?php echo esc_attr( $this->get_feed_description() ); ?></description>
 				<lastBuildDate><?php
 					$lastModified  = $this->settings->get( 'last_modified', get_lastpostmodified( 'GMT' ) );
-					$lastBuildDate = date( DATE_RFC822, strtotime( $lastModified ) );
+					$lastBuildDate = date( 'D, d M Y H:i:s O', strtotime( $lastModified ) );
 					echo $lastBuildDate;
 
 					?></lastBuildDate>
