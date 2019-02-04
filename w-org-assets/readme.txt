@@ -1,11 +1,12 @@
 === Inpsyde Multisite Feed ===
-Contributors: inpsyde, Bueltge, eteubert
+Contributors: inpsyde, Bueltge, biont
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.3
-Tested up to: 4.8.1
-Stable tag: 2.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 5.1
+Requires PHP: 5.6
+Stable tag: 1.1.0
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Consolidates all network feeds into one.
 
@@ -51,15 +52,14 @@ Please give us feedback, contribute and file technical bugs on this [GitHub Repo
 = Licence =
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me.
 
-= Translations =
-The plugin comes with various translations, please refer to the [WordPress Codex](http://codex.wordpress.org/Installing_WordPress_in_Your_Language "Installing WordPress in Your Language") for more information about activating the translation. If you want to help to translate the plugin to your language, please have a look at the .pot file which contains all defintions and may be used with a [gettext](http://www.gnu.org/software/gettext/) editor like [Poedit](http://www.poedit.net/) (Windows) or the plugin [Localization](http://wordpress.org/extend/plugins/codestyling-localization/) for WordPress.
-
 == Changelog ==
-= 2.0.0 () =
+= 1.1.0 () =
 * Complete rewrite of entire codebase using PHP 5.6 features
+* Add option to use post excerpts in post content
 * Add composer.json
 * Add `category` tag in xml to add each site/blog title to each item
 * Improve escaping when rendering feeds
+* Update lastBuildDate when post in the network change.
 * Allow passing query parameters into feed urls.
 * Make query args filterable
 
@@ -78,4 +78,3 @@ The plugin comes with various translations, please refer to the [WordPress Codex
 
 = 1.0.0 =
  * Initial Release
-
