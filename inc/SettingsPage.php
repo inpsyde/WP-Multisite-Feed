@@ -88,7 +88,7 @@ class SettingsPage {
 									OptionsKeys::TITLE, ''
 								)
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::TITLE ?>]"
-								id="inpsmf_<?php echo OptionsKeys::TITLE ?>">
+							       id="inpsmf_<?php echo OptionsKeys::TITLE ?>">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -98,9 +98,9 @@ class SettingsPage {
 						</th>
 						<td>
 							<textarea name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::DESCRIPTION ?>]"
-								id="inpsmf_<?php echo OptionsKeys::DESCRIPTION ?>"
-								cols="40"
-								rows="7"><?php echo esc_attr(
+							          id="inpsmf_<?php echo OptionsKeys::DESCRIPTION ?>"
+							          cols="40"
+							          rows="7"><?php echo esc_attr(
 									$this->settings->get(
 										OptionsKeys::DESCRIPTION, ''
 									)
@@ -118,7 +118,7 @@ class SettingsPage {
 									OptionsKeys::URL_SLUG, 'multifeed'
 								)
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::URL_SLUG ?>]"
-								id="inpsmf_<?php echo OptionsKeys::URL_SLUG ?>">
+							       id="inpsmf_<?php echo OptionsKeys::URL_SLUG ?>">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -133,7 +133,7 @@ class SettingsPage {
 									OptionsKeys::LANGUAGE_SLUG, 'en'
 								)
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::LANGUAGE_SLUG ?>]"
-								id="inpsmf_<?php echo OptionsKeys::LANGUAGE_SLUG ?>">
+							       id="inpsmf_<?php echo OptionsKeys::LANGUAGE_SLUG ?>">
 
 							<p><?php _e(
 									'Language key for the feed. Use the keys from the <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO-639 language key</a>, not the same as the WPLANG constant.',
@@ -151,8 +151,8 @@ class SettingsPage {
 							<input class="regular-text" type="text" value="<?php echo (int) $this->settings->get(
 								OptionsKeys::MAX_ENTRIES_PER_SITE, 20
 							); ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::MAX_ENTRIES_PER_SITE ?>]"
-								id="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES_PER_SITE ?>">
+							       name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::MAX_ENTRIES_PER_SITE ?>]"
+							       id="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES_PER_SITE ?>">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -165,7 +165,7 @@ class SettingsPage {
 							<input class="regular-text" type="text" value="<?php echo (int) $this->settings->get(
 								'max_entries', 100
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::MAX_ENTRIES ?>]"
-								id="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES ?>">
+							       id="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES ?>">
 						</td>
 					</tr>
 					<tr valign="top">
@@ -176,12 +176,12 @@ class SettingsPage {
 						</th>
 						<td>
 							<input
-								class="regular-text"
-								type="text"
-								value="<?php echo esc_attr( $this->settings->get( OptionsKeys::EXCLUDED_BLOGS,
-									'' ) ); ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::EXCLUDED_BLOGS ?>]"
-								id="inpsmf_<?php echo OptionsKeys::EXCLUDED_BLOGS ?>"
+									class="regular-text"
+									type="text"
+									value="<?php echo esc_attr( $this->settings->get( OptionsKeys::EXCLUDED_BLOGS,
+										'' ) ); ?>"
+									name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::EXCLUDED_BLOGS ?>]"
+									id="inpsmf_<?php echo OptionsKeys::EXCLUDED_BLOGS ?>"
 							>
 
 							<p><?php _e(
@@ -198,15 +198,15 @@ class SettingsPage {
 						</th>
 						<td>
 							<input
-								class="regular-text"
-								type="text"
-								value="<?php echo esc_attr(
-									$this->settings->get(
-										OptionsKeys::ONLY_AUTHORS, ''
-									)
-								); ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::ONLY_AUTHORS ?>]"
-								id="inpsmf_<?php echo OptionsKeys::ONLY_AUTHORS ?>"
+									class="regular-text"
+									type="text"
+									value="<?php echo esc_attr(
+										$this->settings->get(
+											OptionsKeys::ONLY_AUTHORS, ''
+										)
+									); ?>"
+									name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::ONLY_AUTHORS ?>]"
+									id="inpsmf_<?php echo OptionsKeys::ONLY_AUTHORS ?>"
 							>
 
 							<p><?php _e(
@@ -223,9 +223,9 @@ class SettingsPage {
 						</th>
 						<td>
 							<input id="inpsmf_<?php echo OptionsKeys::ONLY_PODCASTS ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::ONLY_PODCASTS ?>]"
-								type="checkbox"
-								value="1" <?php if ( $this->settings->get(
+							       name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::ONLY_PODCASTS ?>]"
+							       type="checkbox"
+							       value="1" <?php if ( $this->settings->get(
 								OptionsKeys::ONLY_PODCASTS, ''
 							)
 							) {
@@ -244,10 +244,10 @@ class SettingsPage {
 						</th>
 						<td>
 							<input
-								id="inpsmf_<?php echo OptionsKeys::USE_MORE ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::USE_MORE ?>]"
-								type="checkbox"
-								value="1"
+									id="inpsmf_<?php echo OptionsKeys::USE_MORE ?>"
+									name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::USE_MORE ?>]"
+									type="checkbox"
+									value="1"
 								<?php checked( '1', $this->settings->get( OptionsKeys::USE_MORE, '' ) ); ?>
 							/>
 
@@ -261,9 +261,9 @@ class SettingsPage {
 						</th>
 						<td>
 							<input
-								id="inpsmf_<?php echo OptionsKeys::USE_EXCERPT ?>"
-								name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::USE_EXCERPT ?>]"
-								type="checkbox" value="1"
+									id="inpsmf_<?php echo OptionsKeys::USE_EXCERPT ?>"
+									name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::USE_EXCERPT ?>]"
+									type="checkbox" value="1"
 								<?php checked( '1', $this->settings->get( OptionsKeys::USE_EXCERPT, '' ) ); ?>
 							/>
 							<p><?php _e( 'For each article in a feed, use the excerpt.', 'inps-multisite-feed' ) ?></p>
@@ -279,7 +279,7 @@ class SettingsPage {
 							<input class="regular-text" type="text" value="<?php echo (int) $this->settings->get(
 								'cache_expiry_minutes', 60
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::CACHE_EXPIRY ?>]"
-								id="inpsmf_<?php echo OptionsKeys::CACHE_EXPIRY ?>">
+							       id="inpsmf_<?php echo OptionsKeys::CACHE_EXPIRY ?>">
 
 							<p><?php _e( 'Set to 0 for deactivate caching.', 'inps-multisite-feed' ) ?></p>
 						</td>
@@ -306,6 +306,7 @@ class SettingsPage {
 	 * Save settings
 	 *
 	 * @since   2.0.0  03/26/2012
+	 * @version 2019-02-04
 	 * @return  void
 	 */
 	public function save() {
@@ -317,8 +318,15 @@ class SettingsPage {
 		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'inpsmf-options' ) ) {
 			wp_die( 'Sorry, you failed the nonce test.' );
 		}
-		foreach ( $_REQUEST[ self::OPTION_KEY ] as $key => $value ) {
-			$this->settings->set( $key, $value );
+
+		$options = \get_site_option( self::OPTION_KEY );
+		$request = $_REQUEST[ self::OPTION_KEY ];
+		foreach ( $options as $optionKey => $isValue ) {
+			$newValue = '';
+			if ( array_key_exists( $optionKey, $request ) ) {
+				$newValue = $request[ $optionKey ];
+			}
+			$this->settings->set( $optionKey, $newValue );
 		}
 
 		do_action( 'inpsmf_update_settings' );
