@@ -43,6 +43,7 @@ class Plugin {
 	 * @param array $args
 	 *
 	 * @return string
+	 * @throws Exception\DIException
 	 */
 	public static function get_feed_url( array $args = [] ) {
 
@@ -55,6 +56,7 @@ class Plugin {
 
 	/**
 	 * Setup WordPress hooks and initialize plugin
+	 * @throws Exception\DIException
 	 */
 	public function init() {
 
@@ -66,11 +68,6 @@ class Plugin {
 			}
 			// invalidate cache when necessary
 			add_action( 'admin_init', function () {
-
-				// network activation check
-				if ( is_network_admin() ) {
-
-				}
 
 				$actions = [
 					'publish_post',

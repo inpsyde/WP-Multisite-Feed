@@ -33,7 +33,7 @@ class SettingsPage {
 	}
 
 	/**
-	 * Inclusion in the WordPress UI.
+	 * Initialize in the WordPress UI.
 	 */
 	public function init() {
 

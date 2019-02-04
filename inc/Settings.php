@@ -18,7 +18,7 @@ class Settings implements DataStorage {
 
 		$options = \get_site_option( self::OPTION_KEY );
 
-		return ( isset( $options[ $name ] ) ) ? $options[ $name ] : $default;
+		return isset( $options[ $name ] ) ? $options[ $name ] : $default;
 	}
 
 	public function set( $key, $value ) {
