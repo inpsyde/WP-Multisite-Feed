@@ -5,8 +5,8 @@
  * Description: Consolidates all network feeds into one.
  * Version:     1.1.0
  * Author:      Inpsyde GmbH
- * Author URI:  http://inpsyde.com/
- * License:     GPLv2+
+ * Author URI:  https://inpsyde.com/
+ * License:     GPLv3+
  * Network:     true
  */
 
@@ -23,14 +23,14 @@ add_action( 'plugins_loaded', function () {
 		} );
 	};
 
-	if ( ! version_compare( phpversion(), '5.6', '>=' ) ) {
-		$admin_notice( 'Inpsyde Multisite Feed Plugin requires <strong>PHP 5.6</strong> or higher.<br>You are running PHP ' . phpversion() );
+	if ( ! PHP_VERSION_ID >= 50600 ) {
+		$admin_notice( 'Inpsyde Multisite Feed Plugin requires <strong>PHP 5.6</strong> or higher.<br>You are running PHP ' . PHP_VERSION );
 
 		return;
 	}
 
 	/**
-	 * Check if we're already autoloaded by some external autloader
+	 * Check if we're already autoloaded by some external autoloader.
 	 * If not, load our own
 	 */
 	if ( ! class_exists( 'Inpsyde\\MultisiteFeed\\Plugin' ) ) {

@@ -112,7 +112,7 @@ class NetworkFeedItemProvider implements FeedItemProvider {
 		uasort(
 			$feed_items, function ( $key_a, $key_b ) {
 
-			if ( $key_a->date == $key_b->date ) {
+			if ( $key_a->date === $key_b->date ) {
 				return 0;
 			}
 
@@ -174,9 +174,8 @@ class NetworkFeedItemProvider implements FeedItemProvider {
 			}
 
 			return $included;
-		} else {
-			return [];
 		}
+		return [];
 	}
 
 	/**
@@ -192,8 +191,7 @@ class NetworkFeedItemProvider implements FeedItemProvider {
 			}
 
 			return $excluded;
-		} else {
-			return explode( ',', $this->settings->get( OptionsKeys::EXCLUDED_BLOGS ) );
 		}
+		return explode( ',', $this->settings->get( OptionsKeys::EXCLUDED_BLOGS ) );
 	}
 }

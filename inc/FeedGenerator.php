@@ -74,8 +74,7 @@ class FeedGenerator {
 			}
 		}
 
-		header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ),
-			true );
+		header( 'Content-Type: ' . feed_content_type( 'rss-http' ) . '; charset=' . get_option( 'blog_charset' ) );
 		echo $out;
 	}
 
@@ -92,12 +91,8 @@ class FeedGenerator {
 		}
 
 		$cache_expiry = (int) $this->settings->get( OptionsKeys::CACHE_EXPIRY );
-		if ( $cache_expiry === 0 ) {
-			return false;
-		}
 
-		return true;
-
+		return ! ( $cache_expiry === 0 );
 	}
 
 }

@@ -23,6 +23,7 @@ class FeedRenderer implements Renderer {
 	 * @param FeedItem[] $feed_items
 	 *
 	 * @return string
+	 * @throws Exception\DIException
 	 */
 	public function render( array $feed_items ) {
 
@@ -95,7 +96,7 @@ class FeedRenderer implements Renderer {
 
 						<?php if ( ! $this->settings->get( 'rss_use_excerpt' ) ) : ?>
 							<?php $content = $this->get_the_content_feed( 'rss2', $feed_item ); ?>
-							<?php if ( strlen( $content ) > 0 ) : ?>
+							<?php if ( $content !== '' ) : ?>
 								<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
 							<?php else : ?>
 								<content:encoded><![CDATA[<?php echo $feed_item->get_excerpt() ?>]]></content:encoded>
@@ -159,9 +160,11 @@ class FeedRenderer implements Renderer {
 	 *
 	 * @param  string $feed_type The type of feed. rss2 | atom | rss | rdf
 	 *
+	 * @param FeedItem $item
+	 *
 	 * @return string The filtered content.
 	 */
-	protected function get_the_content_feed( $feed_type = null, FeedItem $item ) {
+	protected function get_the_content_feed( $feed_type, FeedItem $item ) {
 
 		if ( ! $feed_type ) {
 			$feed_type = get_default_feed();
