@@ -4,9 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
-* Update lastBuildDate when post in the network change
 * Add option to use post excerpts in post content
-* Add composer.json and declare this package as a WordPress plugin
+* Add composer.json
+* Add `category` tag in xml to add each site/blog title to each item
+
+### Improve
+* Complete rewrite of entire codebase using PHP 5.6 features
+* Improve escaping when rendering feeds
+* Update `lastBuildDate` when post in the network change.
+* Allow passing query parameters into feed urls.
+* Make query args filterable
 
 ### Fixed
 * Changed ambiguous wording between the "use more" feature and the post excerpt feature

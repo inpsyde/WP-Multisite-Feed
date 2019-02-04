@@ -53,7 +53,7 @@ Please give us feedback, contribute and file technical bugs on this [GitHub Repo
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me.
 
 == Changelog ==
-= 1.1.0 () =
+= 1.1.0 (2019-02-04) =
 * Complete rewrite of entire codebase using PHP 5.6 features
 * Add option to use post excerpts in post content
 * Add composer.json
