@@ -10,9 +10,12 @@ namespace Inpsyde\MultisiteFeed;
  */
 class SettingsPage {
 
-	const MENU_SLUG = 'inpsyde-multisite-feed-page';
+	const MENU_SLUG  = 'inpsyde-multisite-feed-page';
 	const OPTION_KEY = 'inpsyde_multisitefeed';
 
+	/**
+	 * @var
+	 */
 	private $page_hook;
 	/**
 	 * @var DataStorage
@@ -29,11 +32,17 @@ class SettingsPage {
 		$this->settings = $settings;
 	}
 
+	/**
+	 * Inclusion in the WordPress UI.
+	 */
 	public function init() {
 
 		add_action( 'network_admin_menu', [ $this, 'init_menu' ] );
 	}
 
+	/**
+	 * Create the menu.
+	 */
 	public function init_menu() {
 
 		$this->page_hook = add_submenu_page(
@@ -66,7 +75,7 @@ class SettingsPage {
 		?>
 		<div class="wrap">
 
-			<h2><?php _e( 'Multisite Feed Settings', 'inps-multisite-feed' ); ?></h2>
+			<h2><?php esc_html_e( 'Multisite Feed Settings', 'inps-multisite-feed' ); ?></h2>
 
 			<form method="post" action="#">
 
@@ -79,7 +88,7 @@ class SettingsPage {
 					<tbody>
 					<tr valign="top">
 						<th scope="row">
-							<label for="inpsmf_<?php echo OptionsKeys::TITLE ?>"><?php _e( 'Title',
+							<label for="inpsmf_<?php echo OptionsKeys::TITLE; ?>"><?php esc_html_e( 'Title',
 									'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
@@ -87,18 +96,18 @@ class SettingsPage {
 								$this->settings->get(
 									OptionsKeys::TITLE, ''
 								)
-							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::TITLE ?>]"
-							       id="inpsmf_<?php echo OptionsKeys::TITLE ?>">
+							); ?>" name="<?php echo self::OPTION_KEY; ?>[<?php echo OptionsKeys::TITLE ?>]"
+							       id="inpsmf_<?php echo OptionsKeys::TITLE; ?>">
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for="inpsmf_<?php echo OptionsKeys::DESCRIPTION ?>"><?php _e( 'Description',
-									'inps-multisite-feed' ) ?></label>
+							<label for="inpsmf_<?php echo OptionsKeys::DESCRIPTION; ?>"><?php esc_html_e( 'Description',
+									'inps-multisite-feed' ); ?></label>
 						</th>
 						<td>
-							<textarea name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::DESCRIPTION ?>]"
-							          id="inpsmf_<?php echo OptionsKeys::DESCRIPTION ?>"
+							<textarea name="<?php echo self::OPTION_KEY; ?>[<?php echo OptionsKeys::DESCRIPTION; ?>]"
+							          id="inpsmf_<?php echo OptionsKeys::DESCRIPTION; ?>"
 							          cols="40"
 							          rows="7"><?php echo esc_attr(
 									$this->settings->get(
@@ -109,7 +118,7 @@ class SettingsPage {
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<label for="inpsmf_<?php echo OptionsKeys::URL_SLUG ?>"><?php _e( 'Url',
+							<label for="inpsmf_<?php echo OptionsKeys::URL_SLUG; ?>"><?php esc_html_e( 'Url',
 									'inps-multisite-feed' ) ?></label>
 						</th>
 						<td>
@@ -295,7 +304,7 @@ class SettingsPage {
 					</tr>
 					</tbody>
 				</table>
-				<?php submit_button( __( 'Save Changes' ), 'button-primary', 'submit', true ); ?>
+				<?php submit_button( __( 'Save Changes' ), 'button-primary' ); ?>
 			</form>
 
 		</div>
