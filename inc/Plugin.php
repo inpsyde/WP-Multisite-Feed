@@ -111,7 +111,7 @@ class Plugin {
 	public function localize_plugin() {
 
 		load_plugin_textdomain(
-			'inpsyde-multisite-feed',
+			'wp-multisite-feed',
 			false,
 			str_replace( 'inc', '', dirname( plugin_basename( __FILE__ ) ) ) . 'languages'
 		);

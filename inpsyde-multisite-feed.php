@@ -7,7 +7,7 @@
  * Author:      Inpsyde GmbH
  * Author URI:  https://inpsyde.com/
  * License:     GPLv3+
- * Text Domain: inpsyde-multisite-feed
+ * Text Domain: wp-multisite-feed
  * Domain Path: /languages
  * Network:     true
  */
