@@ -7,6 +7,7 @@
  * Author:      Inpsyde GmbH
  * Author URI:  https://inpsyde.com/
  * License:     GPLv3+
+ * Text Domain: inps-multisite-feed
  * Network:     true
  */
 
