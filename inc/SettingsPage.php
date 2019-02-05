@@ -75,7 +75,7 @@ class SettingsPage {
 		?>
 		<div class="wrap">
 
-			<h2><?php esc_html_e( 'Multisite Feed Settings', 'inps-multisite-feed' ); ?></h2>
+			<h2><?php esc_html_e( 'Multisite Feed Settings', 'inpsyde-multisite-feed' ); ?></h2>
 
 			<form method="post" action="#">
 
@@ -89,7 +89,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::TITLE; ?>"><?php esc_html_e( 'Title',
-									'inps-multisite-feed' ) ?></label>
+									'inpsyde-multisite-feed' ) ?></label>
 						</th>
 						<td>
 							<input class="regular-text" type="text" value="<?php echo esc_attr(
@@ -103,7 +103,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::DESCRIPTION; ?>"><?php esc_html_e( 'Description',
-									'inps-multisite-feed' ); ?></label>
+									'inpsyde-multisite-feed' ); ?></label>
 						</th>
 						<td>
 							<textarea name="<?php echo self::OPTION_KEY; ?>[<?php echo OptionsKeys::DESCRIPTION; ?>]"
@@ -119,7 +119,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::URL_SLUG; ?>"><?php esc_html_e( 'Url',
-									'inps-multisite-feed' ) ?></label>
+									'inpsyde-multisite-feed' ) ?></label>
 						</th>
 						<td>
 							<input class="regular-text" type="text" value="<?php echo esc_attr(
@@ -133,7 +133,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::LANGUAGE_SLUG ?>"><?php _e(
-									'RSS Language', 'inps-multisite-feed'
+									'RSS Language', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -146,14 +146,14 @@ class SettingsPage {
 
 							<p><?php _e(
 									'Language key for the feed. Use the keys from the <a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO-639 language key</a>, not the same as the WPLANG constant.',
-									'inps-multisite-feed'
+									'inpsyde-multisite-feed'
 								); ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES_PER_SITE ?>"><?php _e(
-									'Max. entries per site', 'inps-multisite-feed'
+									'Max. entries per site', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -167,7 +167,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::MAX_ENTRIES ?>"><?php _e(
-									'Max. entries overall', 'inps-multisite-feed'
+									'Max. entries overall', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -180,7 +180,7 @@ class SettingsPage {
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::EXCLUDED_BLOGS ?>"><?php _e(
-									'Exclude blogs', 'inps-multisite-feed'
+									'Exclude blogs', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -195,14 +195,14 @@ class SettingsPage {
 
 							<p><?php _e(
 									'Blog IDs, separated by comma. Leave empty to include all blogs.',
-									'inps-multisite-feed'
+									'inpsyde-multisite-feed'
 								) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::ONLY_AUTHORS ?>"><?php _e(
-									'Include authors', 'inps-multisite-feed'
+									'Include authors', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -220,14 +220,14 @@ class SettingsPage {
 
 							<p><?php _e(
 									'Author IDs, separated by comma. Leave empty to include all authors.',
-									'inps-multisite-feed'
+									'inpsyde-multisite-feed'
 								) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::ONLY_PODCASTS ?>"><?php _e(
-									'Only include podcast episodes', 'inps-multisite-feed'
+									'Only include podcast episodes', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -242,14 +242,14 @@ class SettingsPage {
 							} ?> />
 
 							<p><?php _e(
-									'Currently supports podPress or Blubrry PowerPress plugin.', 'inps-multisite-feed'
+									'Currently supports podPress or Blubrry PowerPress plugin.', 'inpsyde-multisite-feed'
 								) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::USE_MORE ?>"><?php _e( 'Full Feed',
-									'inps-multisite-feed' ) ?></label>
+									'inpsyde-multisite-feed' ) ?></label>
 						</th>
 						<td>
 							<input
@@ -260,13 +260,13 @@ class SettingsPage {
 								<?php checked( '1', $this->settings->get( OptionsKeys::USE_MORE, '' ) ); ?>
 							/>
 
-							<p><?php _e( 'For each article in a feed, show full text.', 'inps-multisite-feed' ) ?></p>
+							<p><?php _e( 'For each article in a feed, show full text.', 'inpsyde-multisite-feed' ) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::USE_EXCERPT ?>"><?php _e( 'Use excerpt',
-									'inps-multisite-feed' ) ?></label>
+									'inpsyde-multisite-feed' ) ?></label>
 						</th>
 						<td>
 							<input
@@ -275,13 +275,13 @@ class SettingsPage {
 									type="checkbox" value="1"
 								<?php checked( '1', $this->settings->get( OptionsKeys::USE_EXCERPT, '' ) ); ?>
 							/>
-							<p><?php _e( 'For each article in a feed, use the excerpt.', 'inps-multisite-feed' ) ?></p>
+							<p><?php _e( 'For each article in a feed, use the excerpt.', 'inpsyde-multisite-feed' ) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
 							<label for="inpsmf_<?php echo OptionsKeys::CACHE_EXPIRY ?>"><?php _e(
-									'Cache duration in minutes', 'inps-multisite-feed'
+									'Cache duration in minutes', 'inpsyde-multisite-feed'
 								) ?></label>
 						</th>
 						<td>
@@ -290,12 +290,12 @@ class SettingsPage {
 							); ?>" name="<?php echo self::OPTION_KEY ?>[<?php echo OptionsKeys::CACHE_EXPIRY ?>]"
 							       id="inpsmf_<?php echo OptionsKeys::CACHE_EXPIRY ?>">
 
-							<p><?php _e( 'Set to 0 for deactivate caching.', 'inps-multisite-feed' ) ?></p>
+							<p><?php _e( 'Set to 0 for deactivate caching.', 'inpsyde-multisite-feed' ) ?></p>
 						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php _e( 'Your Feed', 'inps-multisite-feed' ) ?>
+							<?php _e( 'Your Feed', 'inpsyde-multisite-feed' ) ?>
 						</th>
 						<td>
 							<?php $url = Plugin::get_feed_url() ?>
