@@ -47,8 +47,10 @@ class PostFeedItem implements FeedItem {
 		$this->content           = apply_filters( 'the_content', get_the_content() );
 
 		if ( $this->has_post_thumbnail = has_post_thumbnail() ) {
-
-			$image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+            $image = wp_get_attachment_image_src(
+                get_post_thumbnail_id(),
+                apply_filters('inpsmf_thumbnail_size', 'medium')
+            );
 			if ( is_array( $image ) ) {
 				$this->get_post_thumbnail_url = $image[0];
 
