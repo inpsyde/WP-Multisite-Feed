@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Fixed
+* Notice for undefined var, #14
+
+## 1.1.0 (2019-02-19)
 ### Added
 * Add option to use post excerpts in post content
 * Add composer.json
