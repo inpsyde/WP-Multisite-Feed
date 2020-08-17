@@ -2,10 +2,10 @@
 Contributors: inpsyde, Bueltge, biont
 Tags: feed, rss, archive, multisite, network
 Requires at least: 3.3
-Tested up to: 5.1
+Tested up to: 5.5
 Requires PHP: 5.6
-Stable tag: 1.1.0
-License: GPLv3 or later
+Stable tag: 1.1.1
+License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Consolidates all network feeds into one.
@@ -16,7 +16,7 @@ Create a separate feed for your whole multisite. This feed will have a custom ur
 = Bugs, technical hints or contribute =
 Please give me feedback, contribute and file technical bugs on this [GitHub Repo](https://github.com/inpsyde/WP-Multisite-Feed), use Issues.
 
-**Crafted by [Inpsyde](http://inpsyde.com) &middot; Engineering the web since 2006.**
+**Crafted by [Inpsyde](https://inpsyde.com) &middot; Engineering the web since 2006.**
 
 Take a look at [our website](https://inpsyde.com/) if you like to get to know us.
 
@@ -53,6 +53,9 @@ Please give us feedback, contribute and file technical bugs on this [GitHub Repo
 Good news, this plugin is free for everyone! Since it's released under the GPL, you can use it free of charge on your personal or commercial blog. But if you enjoy this plugin, you can thank me.
 
 == Changelog ==
+= 1.1.1 (2020-08-17) =
+* Fix PHP notices
+
 = 1.1.0 (2019-02-04) =
 * Complete rewrite of entire codebase using PHP 5.6 features
 * Add option to use post excerpts in post content

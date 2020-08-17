@@ -6,7 +6,7 @@
  * Version:     1.1.1
  * Author:      Inpsyde GmbH
  * Author URI:  https://inpsyde.com/
- * License:     GPLv3+
+ * License:     GPLv2+
  * Text Domain: wp-multisite-feed
  * Domain Path: /languages
  * Network:     true
